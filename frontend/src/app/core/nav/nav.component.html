@@ -1,0 +1,85 @@
+<nav
+  class="bg-amber-300 fixed w-full shadow-lg shadow-gray-400 border-gray-200 dark:bg-gray-900"
+>
+  <div
+    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
+  >
+    <a class="flex items-center">
+      <span
+        class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
+        >Brainbox</span
+      >
+    </a>
+    <div class="flex items-center md:order-2">
+      <button
+        type="button"
+        class="mr-2 text-white bg-[#050708] hover:bg-[#050708]/80 font-medium rounded-lg text-sm px-4 py-1.5 text-center inline-flex items-center dark:hover:bg-[#050708]/40 dark:focus:ring-gray-600"
+      >
+        <span class="mr-2">Login</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          class="w-5 h-5"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M3 4.25A2.25 2.25 0 015.25 2h5.5A2.25 2.25 0 0113 4.25v2a.75.75 0 01-1.5 0v-2a.75.75 0 00-.75-.75h-5.5a.75.75 0 00-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 00.75-.75v-2a.75.75 0 011.5 0v2A2.25 2.25 0 0110.75 18h-5.5A2.25 2.25 0 013 15.75V4.25z"
+            clip-rule="evenodd"
+          />
+          <path
+            fill-rule="evenodd"
+            d="M6 10a.75.75 0 01.75-.75h9.546l-1.048-.943a.75.75 0 111.004-1.114l2.5 2.25a.75.75 0 010 1.114l-2.5 2.25a.75.75 0 11-1.004-1.114l1.048-.943H6.75A.75.75 0 016 10z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0"
+        id="user-menu-button"
+        aria-expanded="false"
+        data-dropdown-toggle="user-dropdown"
+        data-dropdown-placement="bottom"
+      >
+        <span class="sr-only">Open user menu</span>
+        <img
+          class="w-8 h-8 rounded-full"
+          src="../../../assets/profile/profile.png"
+          alt="user photo"
+        />
+      </button>
+      <!-- Dropdown menu -->
+      <div
+        class="z-50 hidden my-4 text-base list-none bg-slate-200 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+        id="user-dropdown"
+      >
+        <div class="px-4 py-3">
+          <span class="block text-sm text-gray-900 dark:text-white"
+            >Technotroopers</span
+          >
+          <span class="block text-sm text-gray-500 truncate dark:text-gray-400"
+            >name@wow.com</span
+          >
+        </div>
+        <ul class="py-2" aria-labelledby="user-menu-button">
+          <li>
+            <a
+              href="#"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              >Profile</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              >Sign out</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
