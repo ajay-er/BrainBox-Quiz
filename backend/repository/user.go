@@ -43,3 +43,15 @@ func UserSignup(user models.SignupDetail) (models.SignupDetailResponse, error) {
 	return signupDetail, nil
 
 }
+func FindUserDetailsByEmail(user models.LoginDetail) (models.UserLoginResponse, error) {
+	var userdetails models.UserLoginResponse
+
+	err := database.DB.Raw(
+		`SELECT * FROM users where email = ? and blocked = false`, user.Email).Scan(&userdetails).Error
+
+	if err != nil {
+		return models.UserLoginResponse{}, errors.New("error checking user details")
+	}
+	return userdetails, nil
+
+}
