@@ -1,5 +1,6 @@
 package main
 
+
 import (
 	"backend/config"
 	database "backend/db"
@@ -24,5 +25,6 @@ func main() {
 	router := gin.Default()
 	routes.UserRoutes(router.Group("/users"))
 	router.Run(cfg.BASE_URL)
+
 
 }
