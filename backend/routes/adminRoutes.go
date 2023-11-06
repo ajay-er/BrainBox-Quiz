@@ -7,5 +7,6 @@ import (
 )
 
 func AdminRoutes(r *gin.RouterGroup) {
-	r.POST("/login",handlers.AdminLogin)
+	r.POST("/login", handlers.AdminLogin)
+	r.GET("/dashboard",handlers.AdminDashboard)
 }

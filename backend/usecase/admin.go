@@ -37,3 +37,25 @@ func AdminLogin(adminDetail models.AdminLogin) (domain.TokenAdmin, error) {
 	}, nil
 
 }
+func AdminDashboard()(models.TotalAdminDashboard,error) {
+
+userdetails,err:=repository.DashboardUserDetails()
+if err!=nil{
+	return models.TotalAdminDashboard{},err
+}
+// categorydetails,err:=repository.DashBoardCategoryDetails()
+// if err!=nil{
+// 	return models.TotalAdminDashboard{},err
+// }
+// quizdetails,err:=repository.DashboardquizDetails()
+// if err!=nil{
+// 	return models.TotalAdminDashboard{},err
+// }
+// questiondetails,err:=repository.DashboardquestionDetails()
+// if err!=nil{
+// 	return models.TotalAdminDashboard{},err
+// }
+return models.TotalAdminDashboard{
+	DashBoardUser: userdetails,
+},nil 
+}

@@ -27,3 +27,14 @@ func AdminLogin(c *gin.Context) {
 	c.JSON(http.StatusOK, successRes)
 
 }
+func AdminDashboard(c *gin.Context) {
+	dashboard, err := usecase.AdminDashboard()
+	if err != nil {
+		errRes := response.ClientResponse(http.StatusBadRequest, "dashboard could not be displayed", nil, err.Error())
+		c.JSON(400, errRes)
+		return
+	}
+	successRes := response.ClientResponse(200, "dashboard displayed succesfully", dashboard, nil)
+	c.JSON(200, successRes)
+	return
+}
