@@ -54,3 +54,15 @@ func UserLoginWithPassword(c *gin.Context) {
 
 }
 
+func Home(c *gin.Context) {
+
+	getCategoryDetails, err := usecase.GetCategory()
+	if err != nil {
+		errRes := response.ClientResponse(http.StatusBadRequest, "error in taking category details from db", nil, err.Error())
+		c.JSON(http.StatusBadRequest, errRes)
+		return
+	}
+	successRes := response.ClientResponse(http.StatusCreated, "User successfully Logged In With password", getCategoryDetails, nil)
+	c.JSON(http.StatusCreated, successRes)
+
+}

@@ -55,3 +55,11 @@ func FindUserDetailsByEmail(user models.LoginDetail) (models.UserLoginResponse, 
 	return userdetails, nil
 
 }
+func GetCategory() (models.CategoryDetails, error) {
+	var categoryDetails models.CategoryDetails
+	if err := database.DB.Raw("select * from categories").Scan(&categoryDetails.Categories).Error; err != nil {
+
+		return models.CategoryDetails{}, err
+	}
+	return categoryDetails, nil
+}
