@@ -104,3 +104,13 @@ func UserLoginWithPassword(user models.LoginDetail) (*models.TokenUser, error) {
 	}, nil
 
 }
+func GetCategory() (models.CategoryDetails, error) {
+	var categoryDetails models.CategoryDetails
+
+	categoryDetails, err := repository.GetCategory()
+	if err != nil {
+		return models.CategoryDetails{}, err
+	}
+	return categoryDetails, nil
+
+}
