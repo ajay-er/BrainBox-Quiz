@@ -1,6 +1,5 @@
 package main
 
-
 import (
 	"backend/config"
 	database "backend/db"
@@ -24,7 +23,7 @@ func main() {
 	fmt.Println("Database is ", DB)
 	router := gin.Default()
 	routes.UserRoutes(router.Group("/users"))
+	routes.AdminRoutes(router.Group("/admin"))
 	router.Run(cfg.BASE_URL)
-
 
 }
