@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.success-snackbar.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+    background: rgb(0, 0, 0);
+}
+
+.success-snackbar.mat-mdc-snack-bar-container .mdc-snackbar__surface .mat-mdc-button {
+    color: rgb(255, 166, 166) !important;
+}
+
+.success-snackbar.mat-mdc-snack-bar-container .mdc-snackbar__surface .mat-mdc-button:hover {
+    color: rgb(250, 83, 83) !important;
+}
+
+.success-snackbar.mat-mdc-snack-bar-container .mat-mdc-snack-bar-label.mdc-snackbar__label {
+    color: rgb(247, 247, 247);
+    font-weight: 500;
+    white-space: pre-wrap;
+}
