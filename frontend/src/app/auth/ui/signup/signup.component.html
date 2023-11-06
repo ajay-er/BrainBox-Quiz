@@ -1,1 +1,116 @@
-<p>signup works!</p>
+<form
+  class="flex flex-col bg-white rounded shadow-lg sm:p-12 p-6 sm:mt-12 mt-6"
+  [formGroup]="signupForm"
+  (ngSubmit)="onSubmit()"
+>
+  <label class="font-semibold text-xs" for="firstName">Firstname</label>
+  <input
+    class="flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2"
+    type="text"
+    name="firstName"
+    formControlName="firstName"
+  />
+  <p
+    class="text-red-400"
+    *ngIf="(signupFormControl.firstName.touched) && signupFormControl.firstName.errors?.['required']"
+  >
+    firstname is required
+  </p>
+  <label class="font-semibold mt-1 text-xs" for="lastName">Lastname</label>
+  <input
+    class="flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2"
+    type="text"
+    name="lastName"
+    formControlName="lastName"
+  />
+  <p
+    class="text-red-400"
+    *ngIf="(signupFormControl.lastName.touched) && signupFormControl.lastName.errors?.['required']"
+  >
+    lastname is required
+  </p>
+  <label class="font-semibold mt-1 text-xs" for="phone">Phone</label>
+  <input
+    class="flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2"
+    type="tel"
+    name="phone"
+    formControlName="phone"
+  />
+  <p
+    class="text-red-400"
+    *ngIf="(signupFormControl.phone.touched) && signupFormControl.phone.errors?.['required']"
+  >
+    phone is required
+  </p>
+  <label class="font-semibold mt-1 text-xs" for="usernameField">Email</label>
+  <input
+    class="flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2"
+    type="email"
+    name="email"
+    formControlName="email"
+  />
+  <p
+    class="text-red-400"
+    *ngIf="(signupFormControl.email.touched) && signupFormControl.email.errors?.['required']"
+  >
+    email is required
+  </p>
+  <label class="font-semibold mt-2 text-xs" for="passwordField">Password</label>
+  <input
+    class="flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2"
+    type="password"
+    name="password"
+    formControlName="password"
+  />
+  <p
+    class="text-red-400"
+    *ngIf="(signupFormControl.password.touched) && signupFormControl.password.errors?.['required']"
+  >
+    password is required
+  </p>
+  <p
+    class="text-red-400"
+    *ngIf="
+      signupFormControl.password.touched &&
+      signupFormControl.password.errors?.['invalidPassword']
+    "
+  >
+    Password should have minimum 8 characters, at least 1 uppercase letter, 1
+    lowercase letter and 1 number password is required
+  </p>
+
+  <label class="font-semibold mt-2 text-xs" for="confirmpasswordField"
+    >Confirm Password</label
+  >
+  <input
+    class="flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2"
+    type="password"
+    name="confirmPassword"
+    formControlName="confirmPassword"
+  />
+  <p
+    class="text-red-400"
+    *ngIf="(signupFormControl.confirmPassword.touched) && signupFormControl.confirmPassword.errors?.['required']"
+  >
+    confirm password is required
+  </p>
+  <p
+    class="text-red-400"
+    *ngIf="signupFormControl.confirmPassword.touched && signupFormControl.confirmPassword.errors?.['passwordMismatch']"
+  >
+    Passwords doesnot match
+  </p>
+
+  <app-loading-button
+    [buttonType]="'submit'"
+    class="flex items-center mt-8 justify-center h-12 px-6 w-64 bg-blue-600 hover:bg-blue-700 rounded font-semibold text-sm text-blue-100"
+    [label]="'LOGIN'"
+    [disabled]="!signupForm.valid"
+  ></app-loading-button>
+
+  <div class="flex mt-6 justify-center items-center flex-col text-xs">
+    <!-- <a class="text-blue-400 hover:text-blue-500" href="#">Forgot Password</a> -->
+    <span class="mx-2 text-gray-400">Don't have a account yet?</span>
+    <a class="text-blue-400 hover:text-blue-500 cursor-pointer">Sign Up</a>
+  </div>
+</form>

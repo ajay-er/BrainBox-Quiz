@@ -13,4 +13,5 @@ export class LoadingButtonComponent {
   @Input() disabled: boolean = false;
   @Input() bgColor: string = 'bg-blue-600';
   @Input() bgColorHover: string = 'hover:bg-blue-700';
+  @Input() buttonType: string = 'button';
 }

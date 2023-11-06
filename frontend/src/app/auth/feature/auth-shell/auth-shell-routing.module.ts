@@ -9,6 +9,7 @@ const routes: Routes = [
         (m) => m.AuthContainerModule
       ),
   },
+  
 ];
 
 @NgModule({
