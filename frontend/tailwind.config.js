@@ -4,7 +4,9 @@ module.exports = {
     "./src/**/*.{html,ts}",  "./node_modules/flowbite/**/*.js"
   ],
   theme: {
-    extend: {},
+    extend: {
+      opacity: ['disabled']
+    },
   },
   plugins: [require("flowbite/plugin")],
 }

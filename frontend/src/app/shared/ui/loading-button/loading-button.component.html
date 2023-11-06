@@ -1,8 +1,9 @@
 <button
   [disabled]="disabled"
-  type="button"
+  [type]="buttonType"
   [class]="bgColor"
-  class="text-white font-medium  text-sm  text-center mr-2 inline-flex items-center"
+  [class]="bgColorHover"
+  class="text-white font-medium disabled:opacity-50 text-sm text-center mr-2 inline-flex items-center"
 >
   <ng-container
     *ngIf="loadingService.loading$ | async; then content; else loadingContent"

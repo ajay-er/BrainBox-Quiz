@@ -5,6 +5,7 @@ import { AuthContainerRoutingModule } from './auth-container-routing.module';
 import { AuthContainerComponent } from './auth-container.component';
 import { LoginModule } from '../../ui/login/login.module';
 import { LoadingButtonModule } from 'src/app/shared/ui/loading-button/loading-button.module';
+import { SignupModule } from '../../ui/signup/signup.module';
 
 @NgModule({
   declarations: [AuthContainerComponent],
@@ -12,6 +13,7 @@ import { LoadingButtonModule } from 'src/app/shared/ui/loading-button/loading-bu
     CommonModule,
     AuthContainerRoutingModule,
     LoginModule,
+    SignupModule,
     LoadingButtonModule,
   ],
 })

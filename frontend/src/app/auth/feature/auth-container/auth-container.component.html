@@ -1,10 +1,6 @@
 <section
-  class="flex flex-col items-center justify-center w-screen h-screen bg-gray-200 text-gray-700"
+  class="flex flex-col items-center justify-center py-20 w-screen min-h-screen bg-gray-200 text-gray-700"
 >
-  <app-login>
-    <app-loading-button (click)="login()"
-      class="flex items-center justify-center h-12 px-6 w-64 bg-blue-600 mt-8 rounded font-semibold text-sm text-blue-100 "
-      [label]="'LOGIN'"
-    ></app-loading-button>
-  </app-login>
+  <!-- <app-login (onLoginSubmit)="loginSubmit($event)"> </app-login> -->
+  <app-signup (onSignupSubmit)="signupSubmit($event)"> </app-signup>
 </section>
