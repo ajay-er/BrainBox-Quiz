@@ -114,6 +114,7 @@ func GetCategory() (models.CategoryDetails, error) {
 	return categoryDetails, nil
 
 }
+
 func Categories(id string, page int, count int) (models.QuizesInCategopry, error) {
 
 	quizNames, err := repository.GetAllQuizesByCategoryID(id, page, count)
@@ -125,6 +126,7 @@ func Categories(id string, page int, count int) (models.QuizesInCategopry, error
 		return models.QuizesInCategopry{}, err
 	}
 	quizNames.TotalQuizes = totalQuizes
+
 
 	return quizNames, nil
 

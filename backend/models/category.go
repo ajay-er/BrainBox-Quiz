@@ -9,9 +9,11 @@ type Category struct {
 type CategoryDetails struct {
 	Categories []Category
 }
+
 type QuizesInCategopry struct {
 	QuizName []string
 
 	TotalQuizes int
 }
+
 
