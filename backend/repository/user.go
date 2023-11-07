@@ -64,9 +64,7 @@ func GetCategory() (models.CategoryDetails, error) {
 	return categoryDetails, nil
 }
 
-
-func GetAllQuizesByCategoryID(id string, page int, count int) (models.QuizNames, error) {
-
+func GetAllQuizesByCategoryID(id string, page int, count int) (models.QuizesInCategopry, error) {
 
 	if page == 0 {
 		page = 1
@@ -88,4 +86,3 @@ func GetTotalNumberOfQuizInACategory(id string) (int, error) {
 	return totalquizes, nil
 
 }
-

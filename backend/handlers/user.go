@@ -4,7 +4,6 @@ import (
 	"backend/models"
 	"backend/response"
 	"backend/usecase"
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -99,4 +98,3 @@ func Categories(c *gin.Context) {
 	c.JSON(http.StatusCreated, successRes)
 
 }
-
