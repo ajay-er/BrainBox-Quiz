@@ -75,7 +75,7 @@ func Categories(c *gin.Context) {
 	page_no := c.Query("page")
 	count_no := c.Query("count")
 	page, err := strconv.Atoi(page_no)
-	fmt.Println(page_no, count_no, category_id, "👺")
+
 	if err != nil {
 		errRes := response.ClientResponse(http.StatusBadRequest, "error in string conversion of page", nil, err.Error())
 		c.JSON(http.StatusBadRequest, errRes)
