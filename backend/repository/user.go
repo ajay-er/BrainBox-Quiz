@@ -63,3 +63,18 @@ func GetCategory() (models.CategoryDetails, error) {
 	}
 	return categoryDetails, nil
 }
+
+func GetAllQuizesByCategoryID(id string, page int, count int) (models.QuizNames, error) {
+
+	if page == 0 {
+		page = 1
+	}
+	offset := (page - 1) * count
+	var QuizNames models.QuizNames
+	if err := database.DB.Raw("select quiz_name from quizes where category_id = ? limit ? offset ?", id, count, offset).Scan(&QuizNames.QuizName).Error; err != nil {
+		return models.QuizNames{}, err
+	}
+	return QuizNames, nil
+
+}
+
