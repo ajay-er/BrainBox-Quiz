@@ -6,6 +6,7 @@ import (
 	"backend/models"
 	"backend/repository"
 
+
 	"github.com/jinzhu/copier"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -37,25 +38,27 @@ func AdminLogin(adminDetail models.AdminLogin) (domain.TokenAdmin, error) {
 	}, nil
 
 }
-func AdminDashboard()(models.TotalAdminDashboard,error) {
+func AdminDashboard() (models.TotalAdminDashboard, error) {
 
-userdetails,err:=repository.DashboardUserDetails()
-if err!=nil{
-	return models.TotalAdminDashboard{},err
+	userdetails, err := repository.DashboardUserDetails()
+	if err != nil {
+		return models.TotalAdminDashboard{}, err
+	}
+	categorydetails, err := repository.DashBoardCategoryDetails()
+	if err != nil {
+		return models.TotalAdminDashboard{}, err
+	}
+	// quizdetails,err:=repository.DashboardquizDetails()
+	// if err!=nil{
+	// 	return models.TotalAdminDashboard{},err
+	// }
+	// questiondetails,err:=repository.DashboardquestionDetails()
+	// if err!=nil{
+	// 	return models.TotalAdminDashboard{},err
+	// }
+	return models.TotalAdminDashboard{
+		DashBoardUser:     userdetails,
+		DashBoardCategory: categorydetails,
+	}, nil
 }
-// categorydetails,err:=repository.DashBoardCategoryDetails()
-// if err!=nil{
-// 	return models.TotalAdminDashboard{},err
-// }
-// quizdetails,err:=repository.DashboardquizDetails()
-// if err!=nil{
-// 	return models.TotalAdminDashboard{},err
-// }
-// questiondetails,err:=repository.DashboardquestionDetails()
-// if err!=nil{
-// 	return models.TotalAdminDashboard{},err
-// }
-return models.TotalAdminDashboard{
-	DashBoardUser: userdetails,
-},nil 
-}
+

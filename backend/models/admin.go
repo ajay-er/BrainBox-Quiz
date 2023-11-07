@@ -17,6 +17,7 @@ type DashBoardUser struct {
 }
 type DashBoardCategory struct {
 	TotalCategories int
+	Category        []Category
 }
 type DashBoardQuiz struct {
 	TotalQuizes int
@@ -26,7 +27,7 @@ type DashBoardQuestions struct {
 }
 type TotalAdminDashboard struct {
 	DashBoardUser DashBoardUser
-	// DashBoardCategory  DashBoardCategory
+	DashBoardCategory  DashBoardCategory
 	// DashBoardQuiz      DashBoardQuiz
 	// DashBoardQuestions DashBoardQuestions
 }

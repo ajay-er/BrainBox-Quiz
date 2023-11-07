@@ -1,1 +1,46 @@
 package middlewares
+
+import (
+	"backend/helpers"
+	"backend/response"
+	"net/http"
+	"strings"
+
+	"github.com/gin-gonic/gin"
+)
+
+func AuthorizationMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		tokenHeader := c.GetHeader("Authorization")
+		if tokenHeader == "" {
+			response := response.ClientResponse(http.StatusUnauthorized, "No auth header provided", nil, nil)
+			c.JSON(http.StatusUnauthorized, response)
+			c.Abort()
+			return
+		}
+
+		splitted := strings.Split(tokenHeader, " ")
+		if len(splitted) != 2 {
+			response := response.ClientResponse(http.StatusUnauthorized, "Invalid Token Format", nil, nil)
+			c.JSON(http.StatusUnauthorized, response)
+			c.Abort()
+			return
+
+		}
+		tokenpart := splitted[1]
+		tokenClaims, err := helpers.ValidateToken(tokenpart)
+		if err != nil {
+			response := response.ClientResponse(http.StatusUnauthorized, "Invalid Token ", nil, err.Error())
+			c.JSON(http.StatusUnauthorized, response)
+			c.Abort()
+			return
+
+		}
+		// All good, set the Claims in the context
+		c.Set("tokenClaims", tokenClaims)
+
+		c.Next()
+
+	}
+
+}

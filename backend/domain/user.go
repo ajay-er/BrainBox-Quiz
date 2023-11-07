@@ -1,6 +1,10 @@
 package domain
 
-import "gorm.io/gorm"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 type User struct {
 	*gorm.Model `json:"-"`
@@ -16,32 +20,33 @@ type User struct {
 
 type Category struct {
 	*gorm.Model `json:"-"`
-	ID          uint   `json:"id" gorm:"unique; not null"`
-	Category    string `json:"category_name"`
+	ID          uint       `json:"id" gorm:"unique; not null"`
+	CreatedAt   time.Time  `json:"created_at"`
+	UpdatedAt   time.Time  `json:"updated_at"`
+	DeletedAt   *time.Time `json:"deleted_at" gorm:"index"`
+	Category    string     `json:"category_name"`
 }
 
 type Quizes struct {
-    *gorm.Model `json:"-"`
-    ID          uint     `json:"id" gorm:"unique; not null"`
-    QuizName    string   `json:"quiz_name"`
-    CaregoryId  uint     `json:"category_id"`
-    Category    Category `json:"-" gorm:"foreignKey:CaregoryId;references:ID;constraint:OnDelete:CASCADE"`
+	*gorm.Model `json:"-"`
+	ID          uint     `json:"id" gorm:"unique; not null"`
+	QuizName    string   `json:"quiz_name"`
+	CaregoryId  uint     `json:"category_id"`
+	Category    Category `json:"-" gorm:"foreignKey:CaregoryId;references:ID;constraint:OnDelete:CASCADE"`
 }
 
 type Questions struct {
-    *gorm.Model `json:"-"`
-    ID          uint   `json:"id" gorm:"unique; not null"`
-    Question    string `json:"question"`
-    QuizId      uint   `json:"quiz_id"`
-    Quizes      Quizes `json:"-" gorm:"foreignKey:QuizId;references:ID;constraint:OnDelete:CASCADE"`
+	*gorm.Model `json:"-"`
+	ID          uint   `json:"id" gorm:"unique; not null"`
+	Question    string `json:"question"`
+	QuizId      uint   `json:"quiz_id"`
+	Quizes      Quizes `json:"-" gorm:"foreignKey:QuizId;references:ID;constraint:OnDelete:CASCADE"`
 }
-
 
 type Options struct {
-    *gorm.Model `json:"-"`
-    ID          uint      `json:"id" gorm:"unique; not null"`
-    Opton       string    `json:"option"`
-    QuestionId  uint      `json:"question_id"`
-    Questions   Questions `json:"-" gorm:"foreignKey:QuestionId;references:ID;constraint:OnDelete:CASCADE"`
+	*gorm.Model `json:"-"`
+	ID          uint      `json:"id" gorm:"unique; not null"`
+	Opton       string    `json:"option"`
+	QuestionId  uint      `json:"question_id"`
+	Questions   Questions `json:"-" gorm:"foreignKey:QuestionId;references:ID;constraint:OnDelete:CASCADE"`
 }
-
