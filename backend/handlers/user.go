@@ -69,6 +69,7 @@ func Home(c *gin.Context) {
 	c.JSON(http.StatusCreated, successRes)
 
 }
+
 func Categories(c *gin.Context) {
 	category_id := c.Query("id")
 	page_no := c.Query("page")
@@ -98,3 +99,4 @@ func Categories(c *gin.Context) {
 	c.JSON(http.StatusCreated, successRes)
 
 }
+

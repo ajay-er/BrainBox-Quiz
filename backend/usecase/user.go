@@ -112,6 +112,7 @@ func GetCategory() (models.CategoryDetails, error) {
 		return models.CategoryDetails{}, err
 	}
 	return categoryDetails, nil
+
 }
 func Categories(id string, page int, count int) (models.QuizNames, error) {
 
@@ -120,5 +121,6 @@ func Categories(id string, page int, count int) (models.QuizNames, error) {
 		return models.QuizNames{}, err
 	}
 	return quizNames, nil
+
 
 }

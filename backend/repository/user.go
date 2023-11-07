@@ -63,6 +63,7 @@ func GetCategory() (models.CategoryDetails, error) {
 	}
 	return categoryDetails, nil
 }
+
 func GetAllQuizesByCategoryID(id string, page int, count int) (models.QuizNames, error) {
 
 	if page == 0 {
@@ -76,3 +77,4 @@ func GetAllQuizesByCategoryID(id string, page int, count int) (models.QuizNames,
 	return QuizNames, nil
 
 }
+
