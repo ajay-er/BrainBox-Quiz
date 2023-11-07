@@ -112,5 +112,13 @@ func GetCategory() (models.CategoryDetails, error) {
 		return models.CategoryDetails{}, err
 	}
 	return categoryDetails, nil
+}
+func Categories(id string, page int, count int) (models.QuizNames, error) {
+
+	quizNames, err := repository.GetAllQuizesByCategoryID(id, page, count)
+	if err != nil {
+		return models.QuizNames{}, err
+	}
+	return quizNames, nil
 
 }
