@@ -223,21 +223,11 @@ func GetMatchingQuestionsFromQuizId(id string) ([]models.QuestionsResponse, erro
 
 // }
 
-func GetOptionsFromQuestionIds(questionIds []uint) ([]models.OptionsResponse, error) {
+func GetOptionsFromQuestionIds(questionIds uint) ([]models.OptionsResponse, error) {
 	var options []models.OptionsResponse
-	if err := database.DB.Raw("select * from options where question_id IN ?", questionIds).Scan(&options).Error; err != nil {
+	if err := database.DB.Raw("select * from options where question_id = ?", questionIds).Scan(&options).Error; err != nil {
 		return []models.OptionsResponse{}, err
 	}
-	return options, nil
-}
-
-func GetOptionsFromQuestionId(questionIds []uint) ([]models.OptionsResponse, error) {
-	var options []models.OptionsResponse
-
-	if err := database.DB.Where("question_id IN (?)", questionIds).Find(&options).Error; err != nil {
-		return nil, err
-	}
-
 	return options, nil
 }
 

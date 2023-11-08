@@ -38,7 +38,7 @@ func AdminDashboard(c *gin.Context) {
 	}
 	successRes := response.ClientResponse(200, "dashboard displayed succesfully", dashboard, nil)
 	c.JSON(200, successRes)
-	return
+	
 }
 func UpdateUser(c *gin.Context) {
 	idStr := c.Param("id")
