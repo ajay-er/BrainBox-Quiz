@@ -98,3 +98,19 @@ func Categories(c *gin.Context) {
 	c.JSON(http.StatusCreated, successRes)
 
 }
+
+
+func Quizes(c *gin.Context) {
+
+	quizId := c.Query("quiz_id")
+	totalResponse, err := usecase.Quizes(quizId)
+	if err != nil {
+		errRes := response.ClientResponse(http.StatusBadRequest, "error in getting qns and options", nil, err.Error())
+		c.JSON(http.StatusBadRequest, errRes)
+		return
+
+	}
+	successRes := response.ClientResponse(http.StatusCreated, "Successfully get the quiz,qns and options", totalResponse, nil)
+	c.JSON(http.StatusCreated, successRes)
+}
+

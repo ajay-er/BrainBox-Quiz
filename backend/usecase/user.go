@@ -127,8 +127,32 @@ func Categories(id string, page int, count int) (models.QuizesInCategopry, error
 	}
 	quizNames.TotalQuizes = totalQuizes
 
-
 	return quizNames, nil
 
+}
+
+func Quizes(id string) (models.TotalQuizResponse, error) {
+
+	quizResponse, err := repository.GetQuizDetailsFromQuizId(id)
+	if err != nil {
+		return models.TotalQuizResponse{}, err
+	}
+	questionDetails, err := repository.GetMatchingQuestionsFromQuizId(id)
+	if err != nil {
+		return models.TotalQuizResponse{}, err
+	}
+	var questionIds []uint
+	for _, questions := range questionDetails {
+		questionIds = append(questionIds, questions.ID)
+	}
+	options, err := repository.GetOptionsFromQuestionIds(questionIds)
+	if err != nil {
+		return models.TotalQuizResponse{}, err
+	}
+	return models.TotalQuizResponse{
+		QuizResponse:      quizResponse,
+		QuestionsResponse: questionDetails,
+		OptionsResponse:   options,
+	}, nil
 
 }
