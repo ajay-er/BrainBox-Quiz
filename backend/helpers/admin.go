@@ -40,6 +40,7 @@ func GenerateTokenAdmin(admin models.AdminDetailsResponse) (string, error) {
 	return tokenString, nil
 
 }
+
 func ValidateToken(tokenString string) (*authCustomClaimsAdmin, error) {
 	cfg, _ := config.LoadConfig()
 

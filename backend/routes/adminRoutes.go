@@ -8,6 +8,7 @@ import (
 )
 
 func AdminRoutes(r *gin.RouterGroup) {
+
 	r.POST("/login", handlers.AdminLogin)
 	r.Use(middlewares.AuthorizationMiddleware())
 	{
@@ -30,4 +31,5 @@ func AdminRoutes(r *gin.RouterGroup) {
 			category.DELETE("/:id", handlers.DeleteCategory)
 		}
 	}
+
 }
