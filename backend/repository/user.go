@@ -181,12 +181,13 @@ func GetAllQuizesByCategoryID(id string, page int, count int) (models.QuizesInCa
 		page = 1
 	}
 	offset := (page - 1) * count
-
-	var QuizNames models.QuizesInCategopry
-	if err := database.DB.Raw("select quiz_name from quizes where category_id = ? limit ? offset ?", id, count, offset).Scan(&QuizNames.QuizName).Error; err != nil {
+	var quiz []models.QuizResponse
+	if err := database.DB.Raw("select * from quizes where category_id = ? limit ? offset ?", id, count, offset).Scan(&quiz).Error; err != nil {
 		return models.QuizesInCategopry{}, err
 	}
-	return QuizNames, nil
+	return models.QuizesInCategopry{
+		Quizdetail: quiz,
+	}, nil
 }
 
 func GetTotalNumberOfQuizInACategory(id string) (int, error) {
