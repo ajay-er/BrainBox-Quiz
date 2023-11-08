@@ -20,8 +20,6 @@ type QuizesInCategopry struct {
 	TotalQuizes int
 }
 
-
-
 type QuizResponse struct {
 	ID         uint   `json:"id" `
 	QuizName   string `json:"quiz_name"`
@@ -40,9 +38,23 @@ type OptionsResponse struct {
 	IsCorrect  bool   `json:"is_correct"`
 }
 
-type TotalQuizResponse struct {
-	QuizResponse      QuizResponse
-	QuestionsResponse []QuestionsResponse
-	OptionsResponse   []OptionsResponse
-}
+// type TotalQuizResponse struct {
+// 	QuizResponse      QuizResponse
+// 	QuestionsResponse []QuestionsResponse
+// 	OptionsResponse   []OptionsResponse
+// }
 
+// type QuestionAndOption struct {
+// 	QuestionId int
+// 	Question   string
+// 	Options    []OptionsResponse
+// }
+
+type QuizQuestion struct {
+	Question QuestionsResponse
+	Options  []OptionsResponse
+}
+type TotalQuizResponse struct {
+	Quiz     QuizResponse
+	Questions []QuizQuestion
+}

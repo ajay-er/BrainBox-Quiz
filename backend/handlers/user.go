@@ -55,7 +55,6 @@ func UserLoginWithPassword(c *gin.Context) {
 
 }
 
-
 func GetUsers(c *gin.Context) {
 
 	pageStr := c.Param("page")
@@ -136,9 +135,7 @@ func Categories(c *gin.Context) {
 	successRes := response.ClientResponse(http.StatusCreated, "Successfully get the quiz details", quizNames, nil)
 	c.JSON(http.StatusCreated, successRes)
 
-
 }
-
 
 func Quizes(c *gin.Context) {
 
@@ -148,13 +145,11 @@ func Quizes(c *gin.Context) {
 		errRes := response.ClientResponse(http.StatusBadRequest, "error in getting qns and options", nil, err.Error())
 		c.JSON(http.StatusBadRequest, errRes)
 		return
-
 	}
+
 	successRes := response.ClientResponse(http.StatusCreated, "Successfully get the quiz,qns and options", totalResponse, nil)
 	c.JSON(http.StatusCreated, successRes)
 }
-
-
 
 func ScoreTracking(c *gin.Context) {
 	var option_id []string
@@ -173,5 +168,3 @@ func ScoreTracking(c *gin.Context) {
 	successRes := response.ClientResponse(http.StatusCreated, "Successfully got the score", score, nil)
 	c.JSON(http.StatusCreated, successRes)
 }
-
-

@@ -174,12 +174,12 @@ func UpdateUserDetails(user models.UsersProfileDetails, user_id int) (models.Use
 
 	return repository.UserDetails(user_id)
 }
-func DeleteUser(id int)error {
-err:=repository.DeleteUser(id)
-if err != nil {
-	return err
-}
-return nil
+func DeleteUser(id int) error {
+	err := repository.DeleteUser(id)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func BlockUser(id int) error {
@@ -253,19 +253,27 @@ func Quizes(id string) (models.TotalQuizResponse, error) {
 	if err != nil {
 		return models.TotalQuizResponse{}, err
 	}
-	var questionIds []uint
-	for _, questions := range questionDetails {
-		questionIds = append(questionIds, questions.ID)
+
+	totalResponse := models.TotalQuizResponse{
+		Quiz:      quizResponse,
+		Questions: []models.QuizQuestion{},
 	}
-	options, err := repository.GetOptionsFromQuestionIds(questionIds)
-	if err != nil {
-		return models.TotalQuizResponse{}, err
+	for _, question := range questionDetails {
+
+		optionsResponse, err := repository.GetOptionsFromQuestionIds(question.ID)
+		if err != nil {
+			return models.TotalQuizResponse{}, err
+		}
+		questionWithOptions := models.QuizQuestion{
+			Question: question,
+			Options:  optionsResponse,
+		}
+
+		totalResponse.Questions = append(totalResponse.Questions, questionWithOptions)
+
 	}
-	return models.TotalQuizResponse{
-		QuizResponse:      quizResponse,
-		QuestionsResponse: questionDetails,
-		OptionsResponse:   options,
-	}, nil
+
+	return totalResponse, nil
 
 }
 func ScoreTracking(optionId []string) (int, error) {
@@ -286,4 +294,3 @@ func ScoreTracking(optionId []string) (int, error) {
 	return count, nil
 
 }
-
