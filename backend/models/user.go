@@ -33,3 +33,17 @@ type UserLoginResponse struct {
 	Password  string `json:"password"`
 }
 
+type UsersProfileDetails struct {
+	Firstname string `json:"firstname"`
+	Lastname  string `json:"lastname"`
+	Email     string `json:"email" `
+	Phone     string `json:"phone"`
+}
+type UserDetailsAtAdmin struct {
+	Id          int    `json:"id"`
+	Firstname   string `json:"firstname"`
+	Lastname    string `json:"lastname"`
+	Email       string `json:"email"`
+	Phone       string `json:"phone"`
+	BlockStatus bool   `json:"block_status"`
+}

@@ -25,3 +25,40 @@ func AdminLogin(adminDetail models.AdminLogin) (domain.Admin, error) {
 	}
 	return domain.Admin{}, errors.New("the admin login credential is not valid")
 }
+func DashboardUserDetails() (models.DashBoardUser, error) {
+	var userDetail models.DashBoardUser
+	err := database.DB.Raw("select count(*) from users where isadmin=false").Scan(&userDetail.TotalUsers).Error
+	if err != nil {
+		return models.DashBoardUser{}, nil
+	}
+	err = database.DB.Raw("select count(*) from users where blocked = true").Scan(&userDetail.BlockedUsers).Error
+	if err != nil {
+		return models.DashBoardUser{}, nil
+	}
+	var userDetails []models.SignupDetailResponse
+	if err := database.DB.Raw("select * from users where isadmin=false").Scan(&userDetails).Error; err != nil {
+		return models.DashBoardUser{}, err
+	}
+	return models.DashBoardUser{
+		TotalUsers:   userDetail.TotalUsers,
+		BlockedUsers: userDetail.BlockedUsers,
+		Users:        userDetails,
+	}, nil
+
+}
+
+func DashBoardCategoryDetails() (models.DashBoardCategory,error){
+var categorydetail models.DashBoardCategory
+err := database.DB.Raw("select count(*) from categories").Scan(&categorydetail.TotalCategories).Error
+	if err != nil {
+		return models.DashBoardCategory{}, nil
+	}
+	var categoryDetails []models.Category
+	if err := database.DB.Raw("select * from categories").Scan(&categoryDetails).Error; err != nil {
+		return models.DashBoardCategory{}, err
+	}
+	return models.DashBoardCategory{
+		TotalCategories: categorydetail.TotalCategories,
+		Category: categoryDetails,
+	},nil
+}

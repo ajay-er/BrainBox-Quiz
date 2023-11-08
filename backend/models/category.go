@@ -5,6 +5,11 @@ type Category struct {
 	CategoryName string `json:"category_name"`
 }
 
+type SetNewName struct {
+	Current string `json:"current"`
+	New     string `json:"new"`
+}
+
 type CategoryDetails struct {
 	Categories []Category
 }
@@ -14,6 +19,8 @@ type QuizesInCategopry struct {
 
 	TotalQuizes int
 }
+
+
 
 type QuizResponse struct {
 	ID         uint   `json:"id" `
@@ -38,3 +45,4 @@ type TotalQuizResponse struct {
 	QuestionsResponse []QuestionsResponse
 	OptionsResponse   []OptionsResponse
 }
+

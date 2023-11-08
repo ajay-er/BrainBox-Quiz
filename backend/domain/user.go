@@ -1,6 +1,10 @@
 package domain
 
-import "gorm.io/gorm"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 type User struct {
 	*gorm.Model `json:"-"`
@@ -16,8 +20,11 @@ type User struct {
 
 type Category struct {
 	*gorm.Model  `json:"-"`
-	ID           uint   `json:"id" gorm:"unique; not null"`
-	CategoryName string `json:"category_name"`
+	ID           uint       `json:"id" gorm:"unique; not null"`
+	CreatedAt    time.Time  `json:"created_at"`
+	UpdatedAt    time.Time  `json:"updated_at"`
+	DeletedAt    *time.Time `json:"deleted_at" gorm:"index"`
+	CategoryName string     `json:"category_name"`
 }
 
 type Quizes struct {

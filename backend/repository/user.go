@@ -55,6 +55,117 @@ func FindUserDetailsByEmail(user models.LoginDetail) (models.UserLoginResponse, 
 	return userdetails, nil
 
 }
+
+func CheckUserAvailability(email string) bool {
+	fmt.Println(email, "🤣")
+	var count int
+	query := fmt.Sprintf("select count(*) from users where email='%s'", email)
+	if err := database.DB.Raw(query).Scan(&count).Error; err != nil {
+		return false
+	}
+	fmt.Println(count, "🎶")
+	// if count is greater than 0 that means the user already exist
+	return count > 0
+
+}
+func UpdateUserEmail(email string, userID int) error {
+
+	err := database.DB.Exec("update users set email = ? where id = ?", email, userID).Error
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+func UpdateUserPhone(phone string, userID int) error {
+
+	err := database.DB.Exec("update users set phone = ? where id = ?", phone, userID).Error
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+
+func UpdateFirstName(name string, userID int) error {
+
+	err := database.DB.Exec("update users set firstname = ? where id = ?", name, userID).Error
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+func UpdateLastName(name string, userID int) error {
+
+	err := database.DB.Exec("update users set lastname = ? where id = ?", name, userID).Error
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
+func UserDetails(userID int) (models.UsersProfileDetails, error) {
+
+	var userDetails models.UsersProfileDetails
+	err := database.DB.Raw("select users.firstname,users.lastname,users.email,users.phone from users  where users.id = ?", userID).Row().Scan(&userDetails.Firstname, &userDetails.Lastname, &userDetails.Email, &userDetails.Phone)
+	if err != nil {
+		return models.UsersProfileDetails{}, err
+	}
+	return userDetails, nil
+}
+func GetUsers(page int, count int) ([]models.UserDetailsAtAdmin, error) {
+
+	var userDetails []models.UserDetailsAtAdmin
+
+	if page <= 0 {
+		page = 1
+	}
+
+	if count <= 0 {
+		count = 6
+	}
+	offset := (page - 1) * count
+
+	if err := database.DB.Raw("select id,firstname,lastname,email,phone,blocked from users limit ? offset ?", count, offset).Scan(&userDetails).Error; err != nil {
+
+		return []models.UserDetailsAtAdmin{}, err
+	}
+
+	return userDetails, nil
+
+}
+func DeleteUser(id int) error {
+	result := database.DB.Exec("delete from users where id = ?", id)
+	if result.RowsAffected < 1 {
+		return errors.New("no records with that is exist")
+	}
+	return nil
+}
+func GetUserByID(id int) (*domain.User, error) {
+
+	var user domain.User
+	result := database.DB.Where(&domain.User{ID: uint(id)}).Find(&user)
+	if result.Error != nil {
+		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+			return nil, nil
+		}
+		return nil, result.Error
+	}
+	if err := database.DB.Raw("select * from users where id=?", id).Scan(&user).Error; err != nil {
+		return nil, nil
+	}
+	return &user, nil
+}
+func UpdateBlockUserByID(user *domain.User) error {
+	err := database.DB.Exec("update users set blocked=? where id=?", user.Blocked, user.ID).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func GetCategory() (models.CategoryDetails, error) {
 	var categoryDetails models.CategoryDetails
 	if err := database.DB.Raw("select * from categories").Scan(&categoryDetails.Categories).Error; err != nil {
@@ -130,8 +241,6 @@ func GetOptionsFromQuestionId(questionIds []uint) ([]models.OptionsResponse, err
 	return options, nil
 }
 
-
-
 func GetOptionById(optionId string) (models.OptionsResponse, error) {
 
 	var options models.OptionsResponse
@@ -140,5 +249,3 @@ func GetOptionById(optionId string) (models.OptionsResponse, error) {
 	}
 	return options, nil
 }
-
-

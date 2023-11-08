@@ -55,6 +55,45 @@ func UserLoginWithPassword(c *gin.Context) {
 
 }
 
+
+func GetUsers(c *gin.Context) {
+
+	pageStr := c.Param("page")
+
+	if pageStr == "" {
+		pageStr = "0"
+	}
+	page, err := strconv.Atoi(pageStr)
+	if err != nil {
+		errorRes := response.ClientResponse(http.StatusBadRequest, "page number not in right format", nil, err.Error())
+		c.JSON(http.StatusBadRequest, errorRes)
+		return
+	}
+
+	countStr := c.Query("count")
+
+	if countStr == "" {
+		countStr = "0"
+	}
+
+	pageSize, err := strconv.Atoi(countStr)
+
+	if err != nil {
+		errorRes := response.ClientResponse(http.StatusBadRequest, "user count in a page not in right format", nil, err.Error())
+		c.JSON(http.StatusBadRequest, errorRes)
+		return
+	}
+
+	users, err := usecase.GetUsers(page, pageSize)
+	if err != nil {
+		errorRes := response.ClientResponse(http.StatusInternalServerError, "could not retrieve records", nil, err.Error())
+		c.JSON(http.StatusInternalServerError, errorRes)
+		return
+	}
+
+	successRes := response.ClientResponse(http.StatusOK, "Successfully retrieved the users", users, nil)
+	c.JSON(http.StatusOK, successRes)
+}
 func Home(c *gin.Context) {
 
 	getCategoryDetails, err := usecase.GetCategory()
@@ -96,6 +135,7 @@ func Categories(c *gin.Context) {
 	}
 	successRes := response.ClientResponse(http.StatusCreated, "Successfully get the quiz details", quizNames, nil)
 	c.JSON(http.StatusCreated, successRes)
+
 
 }
 
