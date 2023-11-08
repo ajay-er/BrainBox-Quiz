@@ -32,7 +32,7 @@ type Quizes struct {
 	ID          uint     `json:"id" gorm:"unique; not null"`
 	QuizName    string   `json:"quiz_name"`
 	CategoryId  uint     `json:"category_id"`
-	Category    Category `json:"-" gorm:"foreignKey:CaregoryId;references:ID;constraint:OnDelete:CASCADE"`
+	Category    Category `json:"-" gorm:"foreignKey:CategoryId;references:ID;constraint:OnDelete:CASCADE"`
 }
 
 type Questions struct {
@@ -54,10 +54,10 @@ type Options struct {
 
 type QuizResults struct {
 	*gorm.Model `json:"-"`
-	ID          uint      `json:"id" gorm:"unique; not null"`
-	Score     int    `json:"score"`
+	ID          uint   `json:"id" gorm:"unique; not null"`
+	Score       int    `json:"score"`
 	QuizId      uint   `json:"quiz_id"`
 	Quizes      Quizes `json:"-" gorm:"foreignKey:QuizId;references:ID;constraint:OnDelete:CASCADE"`
 	UserId      uint   `json:"user_id"`
-	User      User `json:"-" gorm:"foreignKey:UserId;references:ID;constraint:OnDelete:CASCADE"`
+	User        User   `json:"-" gorm:"foreignKey:UserId;references:ID;constraint:OnDelete:CASCADE"`
 }
