@@ -44,3 +44,13 @@ type Options struct {
 	Questions   Questions `json:"-" gorm:"foreignKey:QuestionId;references:ID;constraint:OnDelete:CASCADE"`
 	IsCorrect   bool      `json:"is_correct" default:"false"`
 }
+
+type QuizResults struct {
+	*gorm.Model `json:"-"`
+	ID          uint      `json:"id" gorm:"unique; not null"`
+	Score     int    `json:"score"`
+	QuizId      uint   `json:"quiz_id"`
+	Quizes      Quizes `json:"-" gorm:"foreignKey:QuizId;references:ID;constraint:OnDelete:CASCADE"`
+	UserId      uint   `json:"user_id"`
+	User      User `json:"-" gorm:"foreignKey:UserId;references:ID;constraint:OnDelete:CASCADE"`
+}
