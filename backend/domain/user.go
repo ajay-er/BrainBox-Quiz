@@ -24,7 +24,7 @@ type Quizes struct {
 	*gorm.Model `json:"-"`
 	ID          uint     `json:"id" gorm:"unique; not null"`
 	QuizName    string   `json:"quiz_name"`
-	CaregoryId  uint     `json:"category_id"`
+	CategoryId  uint     `json:"category_id"`
 	Category    Category `json:"-" gorm:"foreignKey:CaregoryId;references:ID;constraint:OnDelete:CASCADE"`
 }
 
@@ -39,7 +39,7 @@ type Questions struct {
 type Options struct {
 	*gorm.Model `json:"-"`
 	ID          uint      `json:"id" gorm:"unique; not null"`
-	Opton       string    `json:"option"`
+	Option       string    `json:"option"`
 	QuestionId  uint      `json:"question_id"`
 	Questions   Questions `json:"-" gorm:"foreignKey:QuestionId;references:ID;constraint:OnDelete:CASCADE"`
 }
