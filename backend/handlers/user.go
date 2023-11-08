@@ -118,7 +118,6 @@ func Quizes(c *gin.Context) {
 
 func ScoreTracking(c *gin.Context) {
 	var option_id []string
-	
 	if err := c.ShouldBindJSON(&option_id); err != nil {
 		errRes := response.ClientResponse(http.StatusBadRequest, "Options provided are in the wrong format", nil, err.Error())
 		c.JSON(http.StatusBadRequest, errRes)
