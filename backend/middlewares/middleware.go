@@ -3,13 +3,13 @@ package middlewares
 import (
 	"backend/helpers"
 	"backend/response"
+	"fmt"
 
 	"net/http"
 	"strings"
 
 	"github.com/gin-gonic/gin"
 )
-
 
 func UserAuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -42,9 +42,7 @@ func UserAuthMiddleware() gin.HandlerFunc {
 	}
 }
 
-
-
-    func AuthorizationMiddleware() gin.HandlerFunc {
+func AuthorizationMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		tokenHeader := c.GetHeader("Authorization")
 		if tokenHeader == "" {
