@@ -55,6 +55,7 @@ func UserLoginWithPassword(c *gin.Context) {
 
 }
 
+
 func GetUsers(c *gin.Context) {
 
 	pageStr := c.Param("page")
@@ -92,4 +93,48 @@ func GetUsers(c *gin.Context) {
 
 	successRes := response.ClientResponse(http.StatusOK, "Successfully retrieved the users", users, nil)
 	c.JSON(http.StatusOK, successRes)
+}
+func Home(c *gin.Context) {
+
+	getCategoryDetails, err := usecase.GetCategory()
+	if err != nil {
+		errRes := response.ClientResponse(http.StatusBadRequest, "error in taking category details from db", nil, err.Error())
+		c.JSON(http.StatusBadRequest, errRes)
+		return
+
+	}
+	successRes := response.ClientResponse(http.StatusCreated, "User successfully Logged In With password", getCategoryDetails, nil)
+	c.JSON(http.StatusCreated, successRes)
+
+}
+
+func Categories(c *gin.Context) {
+	category_id := c.Query("id")
+	page_no := c.Query("page")
+	count_no := c.Query("count")
+	page, err := strconv.Atoi(page_no)
+
+	if err != nil {
+		errRes := response.ClientResponse(http.StatusBadRequest, "error in string conversion of page", nil, err.Error())
+		c.JSON(http.StatusBadRequest, errRes)
+		return
+
+	}
+	count, err := strconv.Atoi(count_no)
+	if err != nil {
+		errRes := response.ClientResponse(http.StatusBadRequest, "error in string conversion of count", nil, err.Error())
+		c.JSON(http.StatusBadRequest, errRes)
+		return
+
+	}
+	quizNames, err := usecase.Categories(category_id, page, count)
+	if err != nil {
+		errRes := response.ClientResponse(http.StatusBadRequest, "error in taking quizes from db", nil, err.Error())
+		c.JSON(http.StatusBadRequest, errRes)
+		return
+	}
+	successRes := response.ClientResponse(http.StatusCreated, "Successfully get the quiz details", quizNames, nil)
+	c.JSON(http.StatusCreated, successRes)
+
+
 }

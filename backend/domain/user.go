@@ -19,12 +19,12 @@ type User struct {
 }
 
 type Category struct {
-	*gorm.Model `json:"-"`
-	ID          uint       `json:"id" gorm:"unique; not null"`
-	CreatedAt   time.Time  `json:"created_at"`
-	UpdatedAt   time.Time  `json:"updated_at"`
-	DeletedAt   *time.Time `json:"deleted_at" gorm:"index"`
-	Category    string     `json:"category_name"`
+	*gorm.Model  `json:"-"`
+	ID           uint       `json:"id" gorm:"unique; not null"`
+	CreatedAt    time.Time  `json:"created_at"`
+	UpdatedAt    time.Time  `json:"updated_at"`
+	DeletedAt    *time.Time `json:"deleted_at" gorm:"index"`
+	CategoryName string     `json:"category_name"`
 }
 
 type Quizes struct {

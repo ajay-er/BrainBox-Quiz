@@ -55,6 +55,7 @@ func FindUserDetailsByEmail(user models.LoginDetail) (models.UserLoginResponse, 
 	return userdetails, nil
 
 }
+
 func CheckUserAvailability(email string) bool {
 	fmt.Println(email, "🤣")
 	var count int
@@ -164,3 +165,36 @@ func UpdateBlockUserByID(user *domain.User) error {
 	}
 	return nil
 }
+
+func GetCategory() (models.CategoryDetails, error) {
+	var categoryDetails models.CategoryDetails
+	if err := database.DB.Raw("select * from categories").Scan(&categoryDetails.Categories).Error; err != nil {
+
+		return models.CategoryDetails{}, err
+	}
+	return categoryDetails, nil
+}
+
+func GetAllQuizesByCategoryID(id string, page int, count int) (models.QuizesInCategopry, error) {
+
+	if page == 0 {
+		page = 1
+	}
+	offset := (page - 1) * count
+
+	var QuizNames models.QuizesInCategopry
+	if err := database.DB.Raw("select quiz_name from quizes where category_id = ? limit ? offset ?", id, count, offset).Scan(&QuizNames.QuizName).Error; err != nil {
+		return models.QuizesInCategopry{}, err
+	}
+	return QuizNames, nil
+}
+
+func GetTotalNumberOfQuizInACategory(id string) (int, error) {
+	var totalquizes int
+	if err := database.DB.Raw("select count(*) from quizes where category_id = ? ", id).Scan(&totalquizes).Error; err != nil {
+		return 0, err
+	}
+	return totalquizes, nil
+
+}
+
