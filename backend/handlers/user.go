@@ -99,6 +99,7 @@ func Categories(c *gin.Context) {
 
 }
 
+
 func Quizes(c *gin.Context) {
 
 	quizId := c.Query("quiz_id")
@@ -112,3 +113,4 @@ func Quizes(c *gin.Context) {
 	successRes := response.ClientResponse(http.StatusCreated, "Successfully get the quiz,qns and options", totalResponse, nil)
 	c.JSON(http.StatusCreated, successRes)
 }
+

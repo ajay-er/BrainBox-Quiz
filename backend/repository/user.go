@@ -86,6 +86,7 @@ func GetTotalNumberOfQuizInACategory(id string) (int, error) {
 	return totalquizes, nil
 
 }
+
 func GetQuizDetailsFromQuizId(id string) (models.QuizResponse, error) {
 	var quizResponse models.QuizResponse
 	if err := database.DB.Raw("select * from quizes where id = ?", id).Scan(&quizResponse).Error; err != nil {
@@ -128,3 +129,4 @@ func GetOptionsFromQuestionId(questionIds []uint) ([]models.OptionsResponse, err
 
 	return options, nil
 }
+
