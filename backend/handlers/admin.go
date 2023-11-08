@@ -4,7 +4,6 @@ import (
 	"backend/models"
 	"backend/response"
 	"backend/usecase"
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -64,7 +63,6 @@ func UpdateUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, errRes)
 		return
 	}
-	fmt.Println(user, "✔")
 	updatedDetails, err := usecase.UpdateUserDetails(user, id)
 	if err != nil {
 		errorRes := response.ClientResponse(http.StatusInternalServerError, "failed update user", nil, err.Error())

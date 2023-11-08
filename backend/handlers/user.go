@@ -138,3 +138,40 @@ func Categories(c *gin.Context) {
 
 
 }
+
+
+func Quizes(c *gin.Context) {
+
+	quizId := c.Query("quiz_id")
+	totalResponse, err := usecase.Quizes(quizId)
+	if err != nil {
+		errRes := response.ClientResponse(http.StatusBadRequest, "error in getting qns and options", nil, err.Error())
+		c.JSON(http.StatusBadRequest, errRes)
+		return
+
+	}
+	successRes := response.ClientResponse(http.StatusCreated, "Successfully get the quiz,qns and options", totalResponse, nil)
+	c.JSON(http.StatusCreated, successRes)
+}
+
+
+
+func ScoreTracking(c *gin.Context) {
+	var option_id []string
+	
+	if err := c.ShouldBindJSON(&option_id); err != nil {
+		errRes := response.ClientResponse(http.StatusBadRequest, "Options provided are in the wrong format", nil, err.Error())
+		c.JSON(http.StatusBadRequest, errRes)
+		return
+	}
+	score, err := usecase.ScoreTracking(option_id)
+	if err != nil {
+		errRes := response.ClientResponse(http.StatusBadRequest, "error in score tracking", nil, err.Error())
+		c.JSON(http.StatusBadRequest, errRes)
+		return
+	}
+	successRes := response.ClientResponse(http.StatusCreated, "Successfully got the score", score, nil)
+	c.JSON(http.StatusCreated, successRes)
+}
+
+

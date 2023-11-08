@@ -198,3 +198,54 @@ func GetTotalNumberOfQuizInACategory(id string) (int, error) {
 
 }
 
+func GetQuizDetailsFromQuizId(id string) (models.QuizResponse, error) {
+	var quizResponse models.QuizResponse
+	if err := database.DB.Raw("select * from quizes where id = ?", id).Scan(&quizResponse).Error; err != nil {
+		return models.QuizResponse{}, err
+	}
+	return quizResponse, nil
+}
+func GetMatchingQuestionsFromQuizId(id string) ([]models.QuestionsResponse, error) {
+	var questionDetails []models.QuestionsResponse
+	if err := database.DB.Raw("select * from questions where quiz_id = ?", id).Scan(&questionDetails).Error; err != nil {
+		return []models.QuestionsResponse{}, err
+	}
+	return questionDetails, nil
+
+}
+
+// func GetQuestionDetailsFromQuestionId(id string) (models.QuestionsResponse, error) {
+// 	var questionDetails models.QuestionsResponse
+// 	if err := database.DB.Raw("select * from questions where question_id = ?", id).Scan(&questionDetails).Error; err != nil {
+// 		return models.QuestionsResponse{}, err
+// 	}
+// 	return questionDetails, nil
+
+// }
+
+func GetOptionsFromQuestionIds(questionIds []uint) ([]models.OptionsResponse, error) {
+	var options []models.OptionsResponse
+	if err := database.DB.Raw("select * from options where question_id IN ?", questionIds).Scan(&options).Error; err != nil {
+		return []models.OptionsResponse{}, err
+	}
+	return options, nil
+}
+
+func GetOptionsFromQuestionId(questionIds []uint) ([]models.OptionsResponse, error) {
+	var options []models.OptionsResponse
+
+	if err := database.DB.Where("question_id IN (?)", questionIds).Find(&options).Error; err != nil {
+		return nil, err
+	}
+
+	return options, nil
+}
+
+func GetOptionById(optionId string) (models.OptionsResponse, error) {
+
+	var options models.OptionsResponse
+	if err := database.DB.Raw("select * from options where id = ?", optionId).Scan(&options).Error; err != nil {
+		return models.OptionsResponse{}, err
+	}
+	return options, nil
+}

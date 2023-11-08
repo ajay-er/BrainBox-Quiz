@@ -27,7 +27,7 @@ func AdminRoutes(r *gin.RouterGroup) {
 		{
 			category.POST("", handlers.AddCategory)
 			category.PUT("", handlers.UpdateCategory)
-			category.DELETE("/:id",handlers.DeleteCategory)
+			category.DELETE("/:id", handlers.DeleteCategory)
 		}
 	}
 }

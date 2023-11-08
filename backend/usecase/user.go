@@ -136,13 +136,13 @@ func GetUsers(page int, count int) ([]models.UserDetailsAtAdmin, error) {
 
 }
 func UpdateUserDetails(user models.UsersProfileDetails, user_id int) (models.UsersProfileDetails, error) {
-	if !IsEmailValid(user.Email) {
-		return models.UsersProfileDetails{}, errors.New("invalid email format")
-	}
+	// if !IsEmailValid(user.Email) {
+	// 	return models.UsersProfileDetails{}, errors.New("invalid email format")
+	// }
 
-	if !IsValidPhoneNumber(user.Phone) {
-		return models.UsersProfileDetails{}, errors.New("invalid phone number format")
-	}
+	// if !IsValidPhoneNumber(user.Phone) {
+	// 	return models.UsersProfileDetails{}, errors.New("invalid phone number format")
+	// }
 	userExist := repository.CheckUserAvailability(user.Email)
 	// update with email that does not already exist
 	if userExist {
@@ -239,9 +239,51 @@ func Categories(id string, page int, count int) (models.QuizesInCategopry, error
 	}
 	quizNames.TotalQuizes = totalQuizes
 
-
 	return quizNames, nil
 
+}
+
+func Quizes(id string) (models.TotalQuizResponse, error) {
+
+	quizResponse, err := repository.GetQuizDetailsFromQuizId(id)
+	if err != nil {
+		return models.TotalQuizResponse{}, err
+	}
+	questionDetails, err := repository.GetMatchingQuestionsFromQuizId(id)
+	if err != nil {
+		return models.TotalQuizResponse{}, err
+	}
+	var questionIds []uint
+	for _, questions := range questionDetails {
+		questionIds = append(questionIds, questions.ID)
+	}
+	options, err := repository.GetOptionsFromQuestionIds(questionIds)
+	if err != nil {
+		return models.TotalQuizResponse{}, err
+	}
+	return models.TotalQuizResponse{
+		QuizResponse:      quizResponse,
+		QuestionsResponse: questionDetails,
+		OptionsResponse:   options,
+	}, nil
+
+}
+func ScoreTracking(optionId []string) (int, error) {
+	var count = 0
+
+	for _, option := range optionId {
+		options, err := repository.GetOptionById(option)
+		if err != nil {
+			return 0, err
+		}
+
+		if options.IsCorrect {
+			count++
+		}
+
+	}
+
+	return count, nil
 
 }
 
