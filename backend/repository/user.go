@@ -130,3 +130,15 @@ func GetOptionsFromQuestionId(questionIds []uint) ([]models.OptionsResponse, err
 	return options, nil
 }
 
+
+
+func GetOptionById(optionId string) (models.OptionsResponse, error) {
+
+	var options models.OptionsResponse
+	if err := database.DB.Raw("select * from options where id = ?", optionId).Scan(&options).Error; err != nil {
+		return models.OptionsResponse{}, err
+	}
+	return options, nil
+}
+
+

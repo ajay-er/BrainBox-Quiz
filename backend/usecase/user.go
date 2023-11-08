@@ -156,3 +156,21 @@ func Quizes(id string) (models.TotalQuizResponse, error) {
 	}, nil
 
 }
+func ScoreTracking(optionId []string) (int, error) {
+	var count = 0
+
+	for _, option := range optionId {
+		options, err := repository.GetOptionById(option)
+		if err != nil {
+			return 0, err
+		}
+
+		if options.IsCorrect {
+			count++
+		}
+
+	}
+
+	return count, nil
+
+}
