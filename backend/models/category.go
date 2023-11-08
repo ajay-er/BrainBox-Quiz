@@ -30,10 +30,11 @@ type OptionsResponse struct {
 	ID         uint   `json:"id"`
 	Option     string `json:"option"`
 	QuestionId uint   `json:"question_id"`
+	IsCorrect  bool   `json:"is_correct"`
 }
 
-type TotalQuizResponse struct{
-	QuizResponse QuizResponse
+type TotalQuizResponse struct {
+	QuizResponse      QuizResponse
 	QuestionsResponse []QuestionsResponse
-	OptionsResponse []OptionsResponse
+	OptionsResponse   []OptionsResponse
 }

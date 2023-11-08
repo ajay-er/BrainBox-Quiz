@@ -12,5 +12,6 @@ func UserRoutes(r *gin.RouterGroup) {
 	r.GET("/", handlers.Home)
 	r.GET("/categories", handlers.Categories)
 	r.GET("/quizes", handlers.Quizes)
+	r.POST("/score", handlers.ScoreTracking)
 
 }
