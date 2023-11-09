@@ -5,7 +5,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      opacity: ['disabled']
+      opacity: ['disabled'],
     },
   },
   plugins: [require("flowbite/plugin")],
