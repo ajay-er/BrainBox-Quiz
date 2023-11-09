@@ -4,6 +4,15 @@ import { NotFoundComponent } from './shared/ui/not-found/not-found.component';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+  },
+  {
     path: 'auth',
     loadChildren: () =>
       import('./auth/feature/auth-shell/auth-shell.module').then(
@@ -12,13 +21,18 @@ const routes: Routes = [
     // canActivate: [unauthenticatedGuard],
   },
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
+    path: 'category',
+    loadChildren: () =>
+      import(
+        './quiz-category/feature/quiz-category-shell/quiz-category-shell.module'
+      ).then((m) => m.QuizCategoryShellModule),
   },
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+    path: 'quiz',
+    loadChildren: () =>
+      import('./quiz/feature/quiz-shell/quiz-shell.module').then(
+        (m) => m.QuizShellModule
+      ),
   },
   {
     path: '**',
