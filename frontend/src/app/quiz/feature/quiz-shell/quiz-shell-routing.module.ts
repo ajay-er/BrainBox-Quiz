@@ -3,12 +3,19 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: ':id',
+    path: 'result',
     loadChildren: () =>
-      import('../quiz-container/quiz-container.module').then(
-        (m) => m.QuizContainerModule
+    import('../result-container/result-container.module').then(
+      (m) => m.ResultContainerModule
       ),
-  },
+    },
+    {
+      path: ':id',
+      loadChildren: () =>
+        import('../quiz-container/quiz-container.module').then(
+          (m) => m.QuizContainerModule
+        ),
+    },
 ];
 
 @NgModule({
