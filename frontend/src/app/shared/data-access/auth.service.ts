@@ -11,9 +11,9 @@ export class AuthService {
   private baseUrl = environment.apiUrl;
 
   submitLogin(loginData: ILogin) {
-    return this.http.post(`${this.baseUrl}/api/login`, loginData);
+    return this.http.post(`${this.baseUrl}/user/login`, loginData);
   }
   submitSignup(loginData: ISignup) {
-    return this.http.post(`${this.baseUrl}/api/signup`, loginData);
+    return this.http.post(`${this.baseUrl}/user/signup`, loginData);
   }
 }
