@@ -1,7 +1,7 @@
 <button
   [disabled]="disabled"
   [type]="buttonType"
-  class="text-white font-medium bg-blue-600 hover:bg-blue-700 rounded-md p-2 disabled:opacity-50 text-sm text-center mr-2 inline-flex items-center"
+  class="text-white font-medium  rounded-md p-2 disabled:opacity-50 text-sm text-center mr-2 inline-flex items-center"
 >
   <ng-container
     *ngIf="loadingService.loading$ | async; then content; else loadingContent"

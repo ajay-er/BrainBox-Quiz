@@ -21,6 +21,14 @@ const routes: Routes = [
     // canActivate: [unauthenticatedGuard],
   },
   {
+    path: 'admin',
+    loadChildren: () =>
+      import('./admin/feature/admin-shell/admin-shell.module').then(
+        (m) => m.AdminShellModule
+      ),
+    // canActivate: [unauthenticatedGuard],
+  },
+  {
     path: 'category',
     loadChildren: () =>
       import(

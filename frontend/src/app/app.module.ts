@@ -10,9 +10,17 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoadingButtonInterceptor } from './shared/interceptors/loading-button.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { GlobalErrorHandler } from './shared/data-access/global-error-handler.service';
+import { AdminNavComponent } from './core/admin-nav/admin-nav.component';
+import { SidebarComponent } from './core/sidebar/sidebar.component';
 
 @NgModule({
-  declarations: [AppComponent, NavComponent, FooterComponent],
+  declarations: [
+    AppComponent,
+    NavComponent,
+    FooterComponent,
+    AdminNavComponent,
+    SidebarComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
