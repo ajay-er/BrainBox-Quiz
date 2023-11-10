@@ -2,7 +2,7 @@ package main
 
 import (
 	"backend/config"
-	database "backend/db"
+	"backend/db"
 	"backend/routes"
 	"fmt"
 	"log"
