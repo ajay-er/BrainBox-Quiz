@@ -276,21 +276,41 @@ func Quizes(id string) (models.TotalQuizResponse, error) {
 	return totalResponse, nil
 
 }
-func ScoreTracking(optionId []string) (int, error) {
+func ScoreTracking(optionId []string) (models.ScoreResponse, error) {
 	var count = 0
 
 	for _, option := range optionId {
 		options, err := repository.GetOptionById(option)
 		if err != nil {
-			return 0, err
+			return models.ScoreResponse{}, err
 		}
-
 		if options.IsCorrect {
 			count++
 		}
+	}
+	var scoreResponse models.ScoreResponse
+	scoreResponse.Score = count
+	scoreResponse.Percentage = (float64(scoreResponse.Score) / float64(len(optionId)) * 100)
+	fmt.Println(scoreResponse.Percentage)
+	fmt.Println(scoreResponse.Score)
+	fmt.Println(len(optionId))
 
+	if scoreResponse.Percentage == 100 {
+		scoreResponse.Description = "Excellent"
+	}
+	if scoreResponse.Percentage < 100 && scoreResponse.Percentage >= 90 {
+		scoreResponse.Description = "Very Good"
+	}
+	if scoreResponse.Percentage < 90 && scoreResponse.Percentage >= 80 {
+		scoreResponse.Description = " Good"
+	}
+	if scoreResponse.Percentage < 80 && scoreResponse.Percentage >= 50 {
+		scoreResponse.Description = "Fine"
+	}
+	if scoreResponse.Percentage < 50 {
+		scoreResponse.Description = "Need to impr"
 	}
 
-	return count, nil
+	return scoreResponse, nil
 
 }
