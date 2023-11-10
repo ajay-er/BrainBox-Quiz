@@ -1,5 +1,6 @@
 package models
 
+
 type Category struct {
 	ID           uint   `json:"id" gorm:"unique; not null"`
 	CategoryName string `json:"category_name"`
@@ -57,9 +58,11 @@ type QuizQuestion struct {
 type TotalQuizResponse struct {
 	Quiz      QuizResponse
 	Questions []QuizQuestion
+
 }
 type ScoreResponse struct {
 	Score       int     `json:"score"`
 	Percentage  float64 `json:"percentage"`
 	Description string  `json:"descrtiption"`
+
 }
