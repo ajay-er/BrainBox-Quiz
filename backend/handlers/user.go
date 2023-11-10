@@ -55,6 +55,44 @@ func UserLoginWithPassword(c *gin.Context) {
 
 }
 
+func GetUsers(c *gin.Context) {
+
+	pageStr := c.Param("page")
+
+	if pageStr == "" {
+		pageStr = "0"
+	}
+	page, err := strconv.Atoi(pageStr)
+	if err != nil {
+		errorRes := response.ClientResponse(http.StatusBadRequest, "page number not in right format", nil, err.Error())
+		c.JSON(http.StatusBadRequest, errorRes)
+		return
+	}
+
+	countStr := c.Query("count")
+
+	if countStr == "" {
+		countStr = "0"
+	}
+
+	pageSize, err := strconv.Atoi(countStr)
+
+	if err != nil {
+		errorRes := response.ClientResponse(http.StatusBadRequest, "user count in a page not in right format", nil, err.Error())
+		c.JSON(http.StatusBadRequest, errorRes)
+		return
+	}
+
+	users, err := usecase.GetUsers(page, pageSize)
+	if err != nil {
+		errorRes := response.ClientResponse(http.StatusInternalServerError, "could not retrieve records", nil, err.Error())
+		c.JSON(http.StatusInternalServerError, errorRes)
+		return
+	}
+
+	successRes := response.ClientResponse(http.StatusOK, "Successfully retrieved the users", users, nil)
+	c.JSON(http.StatusOK, successRes)
+}
 func Home(c *gin.Context) {
 
 	getCategoryDetails, err := usecase.GetCategory()
@@ -97,4 +135,36 @@ func Categories(c *gin.Context) {
 	successRes := response.ClientResponse(http.StatusCreated, "Successfully get the quiz details", quizNames, nil)
 	c.JSON(http.StatusCreated, successRes)
 
+}
+
+func Quizes(c *gin.Context) {
+
+	quizId := c.Query("quiz_id")
+	totalResponse, err := usecase.Quizes(quizId)
+	if err != nil {
+		errRes := response.ClientResponse(http.StatusBadRequest, "error in getting qns and options", nil, err.Error())
+		c.JSON(http.StatusBadRequest, errRes)
+		return
+	}
+
+	successRes := response.ClientResponse(http.StatusCreated, "Successfully get the quiz,qns and options", totalResponse, nil)
+	c.JSON(http.StatusCreated, successRes)
+}
+
+func ScoreTracking(c *gin.Context) {
+	var option_id []string
+
+	if err := c.ShouldBindJSON(&option_id); err != nil {
+		errRes := response.ClientResponse(http.StatusBadRequest, "Options provided are in the wrong format", nil, err.Error())
+		c.JSON(http.StatusBadRequest, errRes)
+		return
+	}
+	score, err := usecase.ScoreTracking(option_id)
+	if err != nil {
+		errRes := response.ClientResponse(http.StatusBadRequest, "error in score tracking", nil, err.Error())
+		c.JSON(http.StatusBadRequest, errRes)
+		return
+	}
+	successRes := response.ClientResponse(http.StatusCreated, "Successfully got the score", score, nil)
+	c.JSON(http.StatusCreated, successRes)
 }

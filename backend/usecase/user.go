@@ -6,11 +6,32 @@ import (
 	"backend/repository"
 	"errors"
 	"fmt"
+	"regexp"
 
 	"github.com/jinzhu/copier"
 	"golang.org/x/crypto/bcrypt"
 )
 
+func IsEmailValid(email string) bool {
+
+	emailRegex := `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
+	match, _ := regexp.MatchString(emailRegex, email)
+	if match {
+		return true
+	} else {
+		return false
+	}
+}
+func IsValidPhoneNumber(phoneNumber string) bool {
+
+	phoneRegex := `^[789]\d{9}$`
+	match, _ := regexp.MatchString(phoneRegex, phoneNumber)
+	if match {
+		return true
+	} else {
+		return false
+	}
+}
 func UserSignup(user models.SignupDetail) (*models.TokenUser, error) {
 
 	email, err := repository.CheckUserExistsByEmail(user.Email)
@@ -104,6 +125,97 @@ func UserLoginWithPassword(user models.LoginDetail) (*models.TokenUser, error) {
 	}, nil
 
 }
+func GetUsers(page int, count int) ([]models.UserDetailsAtAdmin, error) {
+
+	userDetails, err := repository.GetUsers(page, count)
+	if err != nil {
+		return []models.UserDetailsAtAdmin{}, err
+	}
+
+	return userDetails, nil
+
+}
+func UpdateUserDetails(user models.UsersProfileDetails, user_id int) (models.UsersProfileDetails, error) {
+	// if !IsEmailValid(user.Email) {
+	// 	return models.UsersProfileDetails{}, errors.New("invalid email format")
+	// }
+
+	// if !IsValidPhoneNumber(user.Phone) {
+	// 	return models.UsersProfileDetails{}, errors.New("invalid phone number format")
+	// }
+	userExist := repository.CheckUserAvailability(user.Email)
+	// update with email that does not already exist
+	if userExist {
+		return models.UsersProfileDetails{}, errors.New("user already exist, choose different email")
+	}
+	userExistByPhone, err := repository.CheckUserExistsByPhone(user.Phone)
+
+	if err != nil {
+		return models.UsersProfileDetails{}, errors.New("error with server")
+	}
+	if userExistByPhone != nil {
+		return models.UsersProfileDetails{}, errors.New("user with this phone is already exists")
+	}
+	// which all field are not empty (which are provided from the front end should be updated)
+	if user.Email != "" {
+		repository.UpdateUserEmail(user.Email, user_id)
+	}
+
+	if user.Firstname != "" {
+		repository.UpdateFirstName(user.Firstname, user_id)
+	}
+	if user.Lastname != "" {
+		repository.UpdateLastName(user.Lastname, user_id)
+	}
+
+	if user.Phone != "" {
+		repository.UpdateUserPhone(user.Phone, user_id)
+	}
+
+	return repository.UserDetails(user_id)
+}
+func DeleteUser(id int) error {
+	err := repository.DeleteUser(id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func BlockUser(id int) error {
+	user, err := repository.GetUserByID(id)
+	if err != nil {
+		return err
+	}
+	if user.Blocked {
+		return errors.New("already blocked")
+	} else {
+		user.Blocked = true
+	}
+
+	err = repository.UpdateBlockUserByID(user)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func UnBlockUser(id int) error {
+	user, err := repository.GetUserByID(id)
+	if err != nil {
+		return err
+	}
+	if !user.Blocked {
+		return errors.New("user is already unblocked")
+	} else {
+		user.Blocked = true
+	}
+	err = repository.UpdateBlockUserByID(user)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func GetCategory() (models.CategoryDetails, error) {
 	var categoryDetails models.CategoryDetails
 
@@ -127,8 +239,58 @@ func Categories(id string, page int, count int) (models.QuizesInCategopry, error
 	}
 	quizNames.TotalQuizes = totalQuizes
 
-
 	return quizNames, nil
 
+}
+
+func Quizes(id string) (models.TotalQuizResponse, error) {
+
+	quizResponse, err := repository.GetQuizDetailsFromQuizId(id)
+	if err != nil {
+		return models.TotalQuizResponse{}, err
+	}
+	questionDetails, err := repository.GetMatchingQuestionsFromQuizId(id)
+	if err != nil {
+		return models.TotalQuizResponse{}, err
+	}
+
+	totalResponse := models.TotalQuizResponse{
+		Quiz:      quizResponse,
+		Questions: []models.QuizQuestion{},
+	}
+	for _, question := range questionDetails {
+
+		optionsResponse, err := repository.GetOptionsFromQuestionIds(question.ID)
+		if err != nil {
+			return models.TotalQuizResponse{}, err
+		}
+		questionWithOptions := models.QuizQuestion{
+			Question: question,
+			Options:  optionsResponse,
+		}
+
+		totalResponse.Questions = append(totalResponse.Questions, questionWithOptions)
+
+	}
+
+	return totalResponse, nil
+
+}
+func ScoreTracking(optionId []string) (int, error) {
+	var count = 0
+
+	for _, option := range optionId {
+		options, err := repository.GetOptionById(option)
+		if err != nil {
+			return 0, err
+		}
+
+		if options.IsCorrect {
+			count++
+		}
+
+	}
+
+	return count, nil
 
 }
