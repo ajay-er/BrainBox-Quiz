@@ -12,9 +12,7 @@ const routes: Routes = [
   {
     path: 'edit',
     loadChildren: () =>
-      import('../edit-user/edit-user.module').then(
-        (m) => m.EditUserModule
-      ),
+      import('../edit-user/edit-user.module').then((m) => m.EditUserModule),
   },
   {
     path: 'users',
@@ -26,9 +24,7 @@ const routes: Routes = [
   {
     path: 'category',
     loadChildren: () =>
-      import('../category/category.module').then(
-        (m) => m.CategoryModule
-      ),
+      import('../category/category.module').then((m) => m.CategoryModule),
   },
 ];
 
