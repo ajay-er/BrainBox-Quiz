@@ -276,7 +276,7 @@ func Quizes(id string) (models.TotalQuizResponse, error) {
 	return totalResponse, nil
 
 }
-func ScoreTracking(optionId []string) (models.ScoreResponse, error) {
+func ScoreTracking(optionId []string,userId string,quizId string) (models.ScoreResponse, error) {
 	var count = 0
 
 	for _, option := range optionId {
@@ -288,13 +288,17 @@ func ScoreTracking(optionId []string) (models.ScoreResponse, error) {
 			count++
 		}
 	}
+
+
 	var scoreResponse models.ScoreResponse
 	scoreResponse.Score = count
 	scoreResponse.Percentage = (float64(scoreResponse.Score) / float64(len(optionId)) * 100)
 	fmt.Println(scoreResponse.Percentage)
 	fmt.Println(scoreResponse.Score)
 	fmt.Println(len(optionId))
-
+	if err := repository.UpdateScore(userId, scoreResponse.Score, quizId); err != nil {
+		return models.ScoreResponse{}, err
+	}
 	if scoreResponse.Percentage == 100 {
 		scoreResponse.Description = "Excellent"
 	}
