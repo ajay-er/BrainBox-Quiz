@@ -17,6 +17,7 @@ const routes: Routes = [
       ),
   },
   {
+
     path: 'users',
     loadChildren: () =>
       import('../user-container/user-container.module').then(
@@ -30,6 +31,7 @@ const routes: Routes = [
         (m) => m.CategoryModule
       ),
   },
+
 ];
 
 @NgModule({

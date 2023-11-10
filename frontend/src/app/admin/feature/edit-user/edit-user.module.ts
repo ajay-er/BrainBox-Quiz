@@ -8,5 +8,6 @@ import { UpsertInputModule } from '../../ui/upsert-input/upsert-input.module';
 @NgModule({
   declarations: [EditUserComponent],
   imports: [CommonModule, EditUserRoutingModule, UpsertInputModule],
+
 })
 export class EditUserModule {}
