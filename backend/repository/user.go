@@ -240,3 +240,9 @@ func GetOptionById(optionId string) (models.OptionsResponse, error) {
 	}
 	return options, nil
 }
+func UpdateScore(userId string, score int, quizId string) error {
+	if err := database.DB.Exec("insert into quiz_results(user_id,score,quiz_id) values(?,?,?)", userId, score, quizId).Error; err != nil {
+		return err
+	}
+	return nil
+}
