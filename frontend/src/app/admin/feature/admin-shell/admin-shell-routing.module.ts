@@ -10,10 +10,24 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'edit',
+    loadChildren: () =>
+      import('../edit-user/edit-user.module').then(
+        (m) => m.EditUserModule
+      ),
+  },
+  {
     path: 'users',
     loadChildren: () =>
       import('../user-container/user-container.module').then(
         (m) => m.UserContainerModule
+      ),
+  },
+  {
+    path: 'category',
+    loadChildren: () =>
+      import('../category/category.module').then(
+        (m) => m.CategoryModule
       ),
   },
 ];
