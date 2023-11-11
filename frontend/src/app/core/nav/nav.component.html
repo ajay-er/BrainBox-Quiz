@@ -4,7 +4,7 @@
   <div
     class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
   >
-    <a class="flex items-center">
+    <a href="/" class="flex items-center">
       <span
         class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
         >Brainbox</span
@@ -13,6 +13,7 @@
     <div class="flex items-center md:order-2">
       <button
         type="button"
+        routerLink="/auth/login"
         class="mr-2 text-white bg-[#050708] hover:bg-[#050708]/80 font-medium rounded-lg text-sm px-4 py-1.5 text-center inline-flex items-center dark:hover:bg-[#050708]/40 dark:focus:ring-gray-600"
       >
         <span class="mr-2">Login</span>
@@ -36,6 +37,7 @@
       </button>
 
       <button
+        *ngIf="auth.isLoggedIn$ | async"
         type="button"
         class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0"
         id="user-menu-button"
@@ -71,10 +73,9 @@
               >Profile</a
             >
           </li>
-          <li>
+          <li (click)="auth.logout()">
             <a
-              href="#"
-              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
               >Sign out</a
             >
           </li>

@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./banner-carousel.component.css']
 })
 export class BannerCarouselComponent {
-
 }

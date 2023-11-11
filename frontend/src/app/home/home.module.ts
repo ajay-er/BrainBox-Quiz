@@ -5,6 +5,8 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { BannerCarouselModule } from './ui/banner-carousel/banner-carousel.module';
 import { CategoryCarouselModule } from './ui/category-carousel/category-carousel.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; 
+
 
 @NgModule({
   declarations: [HomeComponent],
@@ -13,6 +15,7 @@ import { CategoryCarouselModule } from './ui/category-carousel/category-carousel
     HomeRoutingModule,
     BannerCarouselModule,
     CategoryCarouselModule,
+    MatProgressSpinnerModule
   ],
 })
 export class HomeModule {}

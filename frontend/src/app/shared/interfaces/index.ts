@@ -15,3 +15,22 @@ export enum Tokens {
   AdminToken = 'adminToken',
   UserToken = 'userToken',
 }
+
+interface User {
+  id: number;
+  firstname: string;
+  lastname: string;
+  email: string;
+  phone: string;
+}
+
+export interface UserAuthResponse {
+  status_code: number;
+  message: string;
+  data: {
+    Users: User;
+    AccessToken: string;
+    RefreshToken: string;
+  };
+  error: null | string;
+}
