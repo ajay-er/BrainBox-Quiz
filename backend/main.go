@@ -2,11 +2,12 @@ package main
 
 import (
 	"backend/config"
-	"backend/db"
+	database "backend/db"
 	"backend/routes"
 	"fmt"
 	"log"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -22,6 +23,11 @@ func main() {
 	}
 	fmt.Println("Database is ", DB)
 	router := gin.Default()
+
+	corss := cors.DefaultConfig()
+	corss.AllowOrigins = []string{"http://localhost:4200"}
+	corss.AllowMethods = []string{"GET", "POST"}
+	router.Use(cors.New(corss))
 	routes.UserRoutes(router.Group("/users"))
 	routes.AdminRoutes(router.Group("/admin"))
 	router.Run(cfg.BASE_URL)
