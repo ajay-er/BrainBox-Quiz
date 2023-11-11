@@ -14,6 +14,12 @@ export class AdminNavComponent {
   protected router = inject(Router);
   protected pageLayoutService = inject(PageLayoutService);
 
+  isDropDownOpen: boolean = false;
+
+  toogleDrop() {
+    this.isDropDownOpen = !this.isDropDownOpen;
+  }
+
   logOut() {
     this.pageLayoutService.setLayout(PageLayout.User);
     this.authService.adminLogout();
