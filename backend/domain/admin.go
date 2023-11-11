@@ -1,6 +1,5 @@
 package domain
 
-import "backend/models"
 
 type Admin struct {
 	ID        uint   `json:"id" gorm:"unique;not null"`
@@ -9,7 +8,4 @@ type Admin struct {
 	Email     string `json:"email" gorm:"validate:required"`
 	Password  string `json:"password" gorm:"validate:required"`
 }
-type TokenAdmin struct {
-	Admin models.AdminDetailsResponse
-	Token string
-}
+
