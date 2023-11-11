@@ -28,6 +28,7 @@ func main() {
 	corss.AllowOrigins = []string{"http://localhost:4200"}
 	corss.AllowMethods = []string{"GET", "POST"}
 	router.Use(cors.New(corss))
+	
 	routes.UserRoutes(router.Group("/users"))
 	routes.AdminRoutes(router.Group("/admin"))
 	router.Run(cfg.BASE_URL)

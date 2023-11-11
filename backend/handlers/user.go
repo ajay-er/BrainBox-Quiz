@@ -9,6 +9,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+
 )
 
 func Signup(c *gin.Context) {
@@ -50,6 +51,7 @@ func UserLoginWithPassword(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, errRes)
 		return
 	}
+	
 	successRes := response.ClientResponse(http.StatusCreated, "User successfully Logged In With password", userLoggedInWithPassword, nil)
 	c.JSON(http.StatusCreated, successRes)
 
