@@ -1,19 +1,17 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { CanActivateFn } from '@angular/router';
 import { take, map } from 'rxjs';
 import { AuthService } from '../data-access/auth.service';
 
-export const adminAuthGuard: CanActivateFn = (route, state) => {
+export const adminUnauthGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
-  const router = inject(Router);
 
   return authService.isAdmin$.pipe(
     take(1),
     map((isAdminLoggedIn) => {
-      if (isAdminLoggedIn) {
+      if (!isAdminLoggedIn) {
         return true;
       } else {
-        router.navigateByUrl('/admin/login');
         return false;
       }
     })

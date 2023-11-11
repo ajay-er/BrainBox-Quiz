@@ -12,6 +12,7 @@
     </a>
     <div class="flex items-center md:order-2">
       <button
+        *ngIf="!(auth.isLoggedIn$ | async)"
         type="button"
         routerLink="/auth/login"
         class="mr-2 text-white bg-[#050708] hover:bg-[#050708]/80 font-medium rounded-lg text-sm px-4 py-1.5 text-center inline-flex items-center dark:hover:bg-[#050708]/40 dark:focus:ring-gray-600"
@@ -37,7 +38,7 @@
       </button>
 
       <button
-        *ngIf="auth.isLoggedIn$ | async"
+        *ngIf="(auth.isLoggedIn$ | async)"
         type="button"
         class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0"
         id="user-menu-button"

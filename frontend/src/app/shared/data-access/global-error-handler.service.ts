@@ -10,13 +10,10 @@ export class GlobalErrorHandler implements ErrorHandler {
   private zone = inject(NgZone);
 
   handleError(error: Error | HttpErrorResponse): void {
-    let errorMsg = '';
-
-    console.log('reached here');
-    
+    let errorMsg = '';    
     if (error instanceof HttpErrorResponse) {
       console.log('Error from the server', error);
-      errorMsg = error.error?.errors?.[0]?.message || error.statusText;
+      errorMsg = error.error.error || error.statusText;
     } else {
       console.log('Error from the client', error);
       errorMsg = error.message;

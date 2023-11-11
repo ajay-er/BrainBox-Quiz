@@ -34,6 +34,7 @@ export class AuthContainerComponent {
       console.log(res);
       localStorage.setItem(Tokens.UserToken,res.data.AccessToken);
       this.auth.login();
+      this.router.navigateByUrl('/home')
       this.snackBar.showSuccess('Login successfull');
     });
   }
@@ -43,6 +44,7 @@ export class AuthContainerComponent {
       console.log(res);
       localStorage.setItem(Tokens.UserToken,res.data.AccessToken);
       this.auth.login();
+      this.router.navigateByUrl('/home')
       this.snackBar.showSuccess('Signup successfull');
     });
   }

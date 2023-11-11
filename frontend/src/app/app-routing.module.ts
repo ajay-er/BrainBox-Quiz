@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './shared/ui/not-found/not-found.component';
 import { unauthGuard } from './shared/guards/unauth.guard';
+import { adminAuthGuard } from './shared/guards/admin-auth.guard';
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
       import('./admin/feature/admin-shell/admin-shell.module').then(
         (m) => m.AdminShellModule
       ),
+      canActivate:[adminAuthGuard]
   },
   {
     path: 'category',
