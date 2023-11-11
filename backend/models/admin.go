@@ -10,6 +10,10 @@ type AdminDetailsResponse struct {
 	Lastname  string `json:"lastname"`
 	Email     string `json:"email"`
 }
+type TokenAdmin struct {
+	Admin AdminDetailsResponse
+	Token string
+}
 type DashBoardUser struct {
 	TotalUsers   int
 	BlockedUsers int
@@ -25,9 +29,9 @@ type DashBoardQuiz struct {
 type DashBoardQuestions struct {
 	TotalQuestions int
 }
-type  TotalAdminDashboard struct {
-	DashBoardUser DashBoardUser
-	DashBoardCategory  DashBoardCategory
-	// DashBoardQuiz      DashBoardQuiz
+type TotalAdminDashboard struct {
+	DashBoardUser     DashBoardUser
+	DashBoardCategory DashBoardCategory
+	DashBoardQuiz     DashBoardQuiz
 	// DashBoardQuestions DashBoardQuestions
 }
