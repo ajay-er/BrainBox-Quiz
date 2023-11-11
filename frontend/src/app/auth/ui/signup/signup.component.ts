@@ -27,8 +27,8 @@ export class SignupComponent {
 
   signupForm = this.fb.group(
     {
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required]],
       password: [
@@ -38,12 +38,12 @@ export class SignupComponent {
           this.customValidator.patternValidator(),
         ]),
       ],
-      confirmPassword: ['', [Validators.required]],
+      confirmpassword: ['', [Validators.required]],
     },
     {
       validator: this.customValidator.MatchPassword(
         'password',
-        'confirmPassword'
+        'confirmpassword'
       ),
     } as AbstractControlOptions
   );
@@ -52,5 +52,9 @@ export class SignupComponent {
     return this.signupForm.controls;
   }
 
-  onSubmit() {}
+  onSubmit() {
+    if(this.signupForm.valid){
+      this.onSignupSubmit.emit(this.signupForm.value as ISignup);
+    }
+  }
 }

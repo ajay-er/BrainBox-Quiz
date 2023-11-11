@@ -5,31 +5,31 @@
 >
   <div class="sm:flex gap-2">
     <div>
-      <label class="font-semibold text-xs" for="firstName">Firstname</label>
+      <label class="font-semibold text-xs" for="firstname">Firstname</label>
       <input
         class="flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2"
         type="text"
-        name="firstName"
-        formControlName="firstName"
+        name="firstname"
+        formControlName="firstname"
       />
       <p
         class="text-red-400"
-        *ngIf="(signupFormControl.firstName.touched) && signupFormControl.firstName.errors?.['required']"
+        *ngIf="(signupFormControl.firstname.touched) && signupFormControl.firstname.errors?.['required']"
       >
         firstname is required
       </p>
     </div>
     <div>
-      <label class="font-semibold mt-1 text-xs" for="lastName">Lastname</label>
+      <label class="font-semibold mt-1 text-xs" for="lastname">Lastname</label>
       <input
         class="flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2"
         type="text"
-        name="lastName"
-        formControlName="lastName"
+        name="lastname"
+        formControlName="lastname"
       />
       <p
         class="text-red-400"
-        *ngIf="(signupFormControl.lastName.touched) && signupFormControl.lastName.errors?.['required']"
+        *ngIf="(signupFormControl.lastname.touched) && signupFormControl.lastname.errors?.['required']"
       >
         lastname is required
       </p>
@@ -106,18 +106,18 @@
       <input
         class="flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2"
         type="password"
-        name="confirmPassword"
-        formControlName="confirmPassword"
+        name="confirmpassword"
+        formControlName="confirmpassword"
       />
       <p
         class="text-red-400"
-        *ngIf="(signupFormControl.confirmPassword.touched) && signupFormControl.confirmPassword.errors?.['required']"
+        *ngIf="(signupFormControl.confirmpassword.touched) && signupFormControl.confirmpassword.errors?.['required']"
       >
         confirm password is required
       </p>
       <p
         class="text-red-400"
-        *ngIf="signupFormControl.confirmPassword.touched && signupFormControl.confirmPassword.errors?.['passwordMismatch']"
+        *ngIf="signupFormControl.confirmpassword.touched && signupFormControl.confirmpassword.errors?.['passwordMismatch']"
       >
         Passwords doesnot match
       </p>
