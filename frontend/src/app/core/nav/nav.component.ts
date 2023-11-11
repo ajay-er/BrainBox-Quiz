@@ -8,4 +8,5 @@ import { AuthService } from 'src/app/shared/data-access/auth.service';
 })
 export class NavComponent {
   protected auth = inject(AuthService);
+ 
 }

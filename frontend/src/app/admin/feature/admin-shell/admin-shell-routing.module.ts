@@ -1,20 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { adminUnauthGuard } from 'src/app/shared/guards/admin-unauth.guard';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'users',
     pathMatch: 'full',
-  },
-  {
-    path: 'login',
-    loadChildren: () =>
-      import('../admin-login/admin-login.module').then(
-        (m) => m.AdminLoginModule
-      ),
-    canActivate: [adminUnauthGuard],
   },
   {
     path: 'add',

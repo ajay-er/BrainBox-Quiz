@@ -51,9 +51,5 @@
     [disabled]="!loginForm.valid"
   ></app-loading-button>
 
-  <div class="flex mt-6 justify-center items-center flex-col text-xs">
-    <!-- <a class="text-blue-400 hover:text-blue-500" href="#">Forgot Password</a> -->
-    <span class="mx-2 text-gray-400">Don't have a account yet?</span>
-    <a routerLink="/auth/signup" class="text-blue-400 hover:text-blue-500 cursor-pointer">Sign Up</a>
-  </div>
+  <ng-content></ng-content>
 </form>

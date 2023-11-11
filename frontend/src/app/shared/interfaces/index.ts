@@ -51,3 +51,8 @@ export interface AdminAuthResponse {
   };
   error: null | string;
 }
+
+export enum PageLayout {
+  Admin = 'admin',
+  User = 'user',
+}

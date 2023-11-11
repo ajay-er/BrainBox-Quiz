@@ -2,7 +2,21 @@
   class="flex flex-col items-center justify-center py-20 w-screen min-h-screen bg-gray-200 text-gray-700"
 >
   <app-login *ngIf="isLoginRoute" (onLoginSubmit)="loginSubmit($event)">
+    <div class="flex mt-6 justify-center items-center flex-col text-xs">
+      <!-- <a class="text-blue-400 hover:text-blue-500" href="#">Forgot Password</a> -->
+      <span class="mx-2 text-gray-400">Don't have a account yet?</span>
+      <a
+        routerLink="/auth/signup"
+        class="text-blue-400 hover:text-blue-500 cursor-pointer"
+        >Sign Up</a
+      >
+    </div>
   </app-login>
   <app-signup *ngIf="isSignupRoute" (onSignupSubmit)="signupSubmit($event)">
   </app-signup>
+  <app-login
+    *ngIf="isAdminLoginRoute"
+    (onLoginSubmit)="adminLoginSubmit($event)"
+  >
+  </app-login>
 </section>
