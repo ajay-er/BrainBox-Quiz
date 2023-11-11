@@ -28,8 +28,21 @@ func AdminRoutes(r *gin.RouterGroup) {
 		{
 			category.POST("", handlers.AddCategory)
 			category.PUT("", handlers.UpdateCategory)
-			category.DELETE("/:id", handlers.DeleteCategory)
+			category.DELETE("", handlers.DeleteCategory)
 		}
+		quizes := r.Group("/quizes")
+		{
+			quizes.POST("/add", handlers.CreateQuiz)
+			quizes.PUT("", handlers.UpdateQuiz)
+			quizes.DELETE("", handlers.DeleteQuiz)
+		}
+		questions := r.Group("/questions")
+		{
+			questions.PUT("", handlers.UpdateQuestion)
+			questions.DELETE("", handlers.DeleteQuestion)
+		}
+	
+
 	}
 
 }
