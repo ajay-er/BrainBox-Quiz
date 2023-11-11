@@ -15,7 +15,7 @@ const routes: Routes = [
         import('../quiz-container/quiz-container.module').then(
           (m) => m.QuizContainerModule
         ),
-    },
+    }
 ];
 
 @NgModule({

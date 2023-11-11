@@ -35,10 +35,10 @@
         <div class="flex items-center ml-3">
           <div>
             <button
+              (click)="toogleDrop()"
               type="button"
               class="flex text-sm bg-gray-800 rounded-full"
               aria-expanded="false"
-              data-dropdown-toggle="dropdown-user"
             >
               <span class="sr-only">Open user menu</span>
               <img
@@ -49,8 +49,9 @@
             </button>
           </div>
           <div
-            class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
+            class="z-50 absolute top-10 right-6 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
             id="dropdown-user"
+            [ngClass]="{ hidden: !isDropDownOpen }"
           >
             <div class="px-4 py-3" role="none">
               <p class="text-sm text-gray-900 dark:text-white" role="none">
@@ -64,10 +65,9 @@
               </p>
             </div>
             <ul class="py-1" role="none">
-              <li>
+              <li (click)="logOut()" (click)="toogleDrop()">
                 <a
-                  href="#"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                  class="block cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                   role="menuitem"
                   >Sign out</a
                 >
@@ -78,4 +78,9 @@
       </div>
     </div>
   </div>
+  <div
+    [ngClass]="{ block: isDropDownOpen, hidden: !isDropDownOpen }"
+    class="fixed top-0 left-0 w-full h-full bg-black opacity-5 z-0"
+    (click)="toogleDrop()"
+  ></div>
 </nav>
