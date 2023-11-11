@@ -23,9 +23,10 @@ type CategoryResponse struct {
 	CategoryName string `json:"category_name"`
 }
 type QuizResponse struct {
-	ID         uint   `json:"id" `
-	QuizName   string `json:"quiz_name"`
-	CategoryId uint   `json:"category_id"`
+	ID          uint   `json:"id" `
+	QuizName    string `json:"quiz_name"`
+	Description string `json:"description"`
+	CategoryId  uint   `json:"category_id"`
 }
 type QuestionsResponse struct {
 	ID       uint   `json:"id" `
@@ -60,4 +61,11 @@ type TotalQuizResponse struct {
 	Category  CategoryResponse
 	Quiz      QuizResponse
 	Questions []QuizQuestion
+
+}
+type ScoreResponse struct {
+	Score       int     `json:"score"`
+	Percentage  float64 `json:"percentage"`
+	Description string  `json:"descrtiption"`
+
 }

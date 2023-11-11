@@ -1,19 +1,32 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
-import { ILogin, ISignup } from '../interfaces';
-import { environment } from 'src/environments/environment';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Tokens } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private http = inject(HttpClient);
-  private baseUrl = environment.apiUrl;
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  isLoggedIn$ = this.isAuthenticatedSubject.asObservable();
 
-  submitLogin(loginData: ILogin) {
-    return this.http.post(`${this.baseUrl}/api/login`, loginData);
+  private isAdminSubject = new BehaviorSubject<boolean>(false);
+  isAdmin$ = this.isAdminSubject.asObservable();
+
+  login() {
+    this.isAuthenticatedSubject.next(true);
   }
-  submitSignup(loginData: ISignup) {
-    return this.http.post(`${this.baseUrl}/api/signup`, loginData);
+
+  logout() {
+    window.localStorage.removeItem(Tokens.UserToken);
+    this.isAuthenticatedSubject.next(false);
+  }
+
+  adminLogin() {
+    this.isAdminSubject.next(true);
+  }
+
+  adminLogout() {
+    window.localStorage.removeItem(Tokens.AdminToken);
+    this.isAdminSubject.next(false);
   }
 }

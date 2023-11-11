@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
-import { AuthService } from 'src/app/shared/data-access/auth.service';
 import { SnackbarService } from 'src/app/shared/data-access/snackbar.service';
-import { ILogin, ISignup } from 'src/app/shared/interfaces';
+import { ILogin, ISignup, Tokens, UserAuthResponse } from 'src/app/shared/interfaces';
+import { AuthApiService } from '../../data-access/auth-api.service';
+import { AuthService } from 'src/app/shared/data-access/auth.service';
 
 @Component({
   selector: 'app-auth-container',
@@ -12,7 +13,8 @@ import { ILogin, ISignup } from 'src/app/shared/interfaces';
 })
 export class AuthContainerComponent {
   private router = inject(Router);
-  private authSevice = inject(AuthService);
+  private authApi = inject(AuthApiService);
+  private auth = inject(AuthService);
   private snackBar = inject(SnackbarService);
 
   isLoginRoute = false;
@@ -28,15 +30,19 @@ export class AuthContainerComponent {
   }
 
   loginSubmit(data: ILogin) {
-    this.authSevice.submitLogin(data).subscribe((res) => {
+    this.authApi.submitLogin(data).subscribe((res:UserAuthResponse) => {
       console.log(res);
+      localStorage.setItem(Tokens.UserToken,res.data.AccessToken);
+      this.auth.login();
       this.snackBar.showSuccess('Login successfull');
     });
   }
 
   signupSubmit(data: ISignup) {
-    this.authSevice.submitSignup(data).subscribe((res) => {
+    this.authApi.submitSignup(data).subscribe((res:UserAuthResponse) => {
       console.log(res);
+      localStorage.setItem(Tokens.UserToken,res.data.AccessToken);
+      this.auth.login();
       this.snackBar.showSuccess('Signup successfull');
     });
   }

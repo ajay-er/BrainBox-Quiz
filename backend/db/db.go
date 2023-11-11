@@ -24,6 +24,8 @@ func ConnectDatabase(cfg config.Config) (*gorm.DB, error) {
 	DB.AutoMigrate(&domain.Quizes{})
 	DB.AutoMigrate(&domain.Questions{})
 	DB.AutoMigrate(&domain.Options{})
+	DB.AutoMigrate(&domain.QuizResults{})
+	
 
 	return DB, dberr
 

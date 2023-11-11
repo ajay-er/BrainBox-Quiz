@@ -9,6 +9,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+
 )
 
 func Signup(c *gin.Context) {
@@ -50,6 +51,7 @@ func UserLoginWithPassword(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, errRes)
 		return
 	}
+	
 	successRes := response.ClientResponse(http.StatusCreated, "User successfully Logged In With password", userLoggedInWithPassword, nil)
 	c.JSON(http.StatusCreated, successRes)
 
@@ -153,13 +155,15 @@ func Quizes(c *gin.Context) {
 
 func ScoreTracking(c *gin.Context) {
 	var option_id []string
+	quizId := c.Query("quiz_id")
+	userId := c.Query("user_id")
 
 	if err := c.ShouldBindJSON(&option_id); err != nil {
 		errRes := response.ClientResponse(http.StatusBadRequest, "Options provided are in the wrong format", nil, err.Error())
 		c.JSON(http.StatusBadRequest, errRes)
 		return
 	}
-	score, err := usecase.ScoreTracking(option_id)
+	score, err := usecase.ScoreTracking(option_id,userId,quizId)
 	if err != nil {
 		errRes := response.ClientResponse(http.StatusBadRequest, "error in score tracking", nil, err.Error())
 		c.JSON(http.StatusBadRequest, errRes)

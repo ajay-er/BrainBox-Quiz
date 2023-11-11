@@ -31,6 +31,7 @@ type Quizes struct {
 	*gorm.Model `json:"-"`
 	ID          uint     `json:"id" gorm:"unique; not null"`
 	QuizName    string   `json:"quiz_name" gorm:"unique;" `
+	Description string `json:"description"`
 	CategoryId  uint     `json:"category_id"`
 	Category    Category `json:"-" gorm:"foreignKey:CategoryId;references:ID;constraint:OnDelete:CASCADE"`
 }

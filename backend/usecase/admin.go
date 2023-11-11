@@ -4,7 +4,7 @@ import (
 	"backend/helpers"
 	"backend/models"
 	"backend/repository"
-
+	"errors"
 
 	"github.com/jinzhu/copier"
 	"golang.org/x/crypto/bcrypt"
@@ -18,18 +18,22 @@ func AdminLogin(adminDetail models.AdminLogin) (models.TokenAdmin, error) {
 	}
 	err = bcrypt.CompareHashAndPassword([]byte(adminCompareDetails.Password), []byte(adminDetail.Password))
 	if err != nil {
-		return models.TokenAdmin{}, err
+
+		return models.TokenAdmin{}, errors.New("password not matching")
+
 	}
 	var adminDetailResponse models.AdminDetailsResponse
 
 	err = copier.Copy(&adminDetailResponse, &adminCompareDetails)
 	if err != nil {
-		return models.TokenAdmin{}, err
+
+		return models.TokenAdmin{}, errors.New("password not matching")
+
 	}
 	tokenString, err := helpers.GenerateTokenAdmin(adminDetailResponse)
 
 	if err != nil {
-		return models.TokenAdmin{}, err
+		return models.TokenAdmin{}, errors.New("error in creating token")
 	}
 	return models.TokenAdmin{
 		Admin: adminDetailResponse,
