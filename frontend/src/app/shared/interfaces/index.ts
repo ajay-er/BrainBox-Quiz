@@ -3,9 +3,15 @@ export interface ILogin {
   password: string;
 }
 export interface ISignup {
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   phone: string;
   email: string;
   password: string;
+  confirmpassword: string;
+}
+
+export enum Tokens {
+  AdminToken = 'adminToken',
+  UserToken = 'userToken',
 }

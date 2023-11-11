@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
-import { AuthService } from 'src/app/shared/data-access/auth.service';
 import { SnackbarService } from 'src/app/shared/data-access/snackbar.service';
 import { ILogin, ISignup } from 'src/app/shared/interfaces';
+import { AuthApiService } from '../../data-access/auth-api.service';
 
 @Component({
   selector: 'app-auth-container',
@@ -12,7 +12,7 @@ import { ILogin, ISignup } from 'src/app/shared/interfaces';
 })
 export class AuthContainerComponent {
   private router = inject(Router);
-  private authSevice = inject(AuthService);
+  private authSevice = inject(AuthApiService);
   private snackBar = inject(SnackbarService);
 
   isLoginRoute = false;
@@ -38,6 +38,7 @@ export class AuthContainerComponent {
     this.authSevice.submitSignup(data).subscribe((res) => {
       console.log(res);
       this.snackBar.showSuccess('Signup successfull');
+
     });
   }
 }
