@@ -8,7 +8,6 @@ import { PageLayout } from 'src/app/shared/interfaces';
 @Component({
   selector: 'app-admin-nav',
   templateUrl: './admin-nav.component.html',
-  styleUrls: ['./admin-nav.component.css'],
 })
 export class AdminNavComponent {
   protected authService = inject(AuthService);
