@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"regexp"
+	"strconv"
 
 	"github.com/jinzhu/copier"
 	"golang.org/x/crypto/bcrypt"
@@ -218,17 +219,24 @@ func UnBlockUser(id int) error {
 
 func GetCategory() (models.CategoryDetails, error) {
 	var categoryDetails models.CategoryDetails
-
 	categoryDetails, err := repository.GetCategory()
 	if err != nil {
 		return models.CategoryDetails{}, err
 	}
+	for i := range categoryDetails.Categories {
+		cat_id := strconv.Itoa(int(categoryDetails.Categories[i].ID))
+		count, err := repository.GetTotalNumberOfQuizInACategory(cat_id)
+		if err != nil {
+			return models.CategoryDetails{}, err
+		}
+		categoryDetails.Categories[i].TotalQuizes = count
+		fmt.Println("Total quizes is ", categoryDetails.Categories[i].TotalQuizes)
+	}
+	fmt.Println("category Details is ", categoryDetails)
 	return categoryDetails, nil
-
 }
 
 func Categories(id string, page int, count int) (models.QuizesInCategopry, error) {
-
 	quizNames, err := repository.GetAllQuizesByCategoryID(id, page, count)
 	if err != nil {
 		return models.QuizesInCategopry{}, err
@@ -238,9 +246,7 @@ func Categories(id string, page int, count int) (models.QuizesInCategopry, error
 		return models.QuizesInCategopry{}, err
 	}
 	quizNames.TotalQuizes = totalQuizes
-
 	return quizNames, nil
-
 }
 
 func Quizes(id string) (models.TotalQuizResponse, error) {
@@ -276,7 +282,7 @@ func Quizes(id string) (models.TotalQuizResponse, error) {
 	return totalResponse, nil
 
 }
-func ScoreTracking(optionId []string,userId string,quizId string) (models.ScoreResponse, error) {
+func ScoreTracking(optionId []string, userId string, quizId string) (models.ScoreResponse, error) {
 	var count = 0
 
 	for _, option := range optionId {
@@ -288,7 +294,6 @@ func ScoreTracking(optionId []string,userId string,quizId string) (models.ScoreR
 			count++
 		}
 	}
-
 
 	var scoreResponse models.ScoreResponse
 	scoreResponse.Score = count
