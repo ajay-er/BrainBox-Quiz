@@ -102,7 +102,6 @@ func Home(c *gin.Context) {
 		errRes := response.ClientResponse(http.StatusBadRequest, "error in taking category details from db", nil, err.Error())
 		c.JSON(http.StatusBadRequest, errRes)
 		return
-
 	}
 	successRes := response.ClientResponse(http.StatusCreated, "User successfully Logged In With password", getCategoryDetails, nil)
 	c.JSON(http.StatusCreated, successRes)
@@ -119,14 +118,12 @@ func Categories(c *gin.Context) {
 		errRes := response.ClientResponse(http.StatusBadRequest, "error in string conversion of page", nil, err.Error())
 		c.JSON(http.StatusBadRequest, errRes)
 		return
-
 	}
 	count, err := strconv.Atoi(count_no)
 	if err != nil {
 		errRes := response.ClientResponse(http.StatusBadRequest, "error in string conversion of count", nil, err.Error())
 		c.JSON(http.StatusBadRequest, errRes)
 		return
-
 	}
 	quizNames, err := usecase.Categories(category_id, page, count)
 	if err != nil {

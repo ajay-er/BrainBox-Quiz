@@ -24,14 +24,16 @@ type Category struct {
 	CreatedAt    time.Time  `json:"created_at"`
 	UpdatedAt    time.Time  `json:"updated_at"`
 	DeletedAt    *time.Time `json:"deleted_at" gorm:"index"`
-	CategoryName string     `json:"category_name" gorm:"unique; "  `
+	CategoryName string     `json:"category_name" gorm:"unique;"`
+	IconSvg      string     `json:"icon_svg"`
+	TotalQuizes  int        `json:"total_quizes"`
 }
 
 type Quizes struct {
 	*gorm.Model `json:"-"`
 	ID          uint     `json:"id" gorm:"unique; not null"`
 	QuizName    string   `json:"quiz_name" gorm:"unique;" `
-	Description string `json:"description"`
+	Description string   `json:"description"`
 	CategoryId  uint     `json:"category_id"`
 	Category    Category `json:"-" gorm:"foreignKey:CategoryId;references:ID;constraint:OnDelete:CASCADE"`
 }
