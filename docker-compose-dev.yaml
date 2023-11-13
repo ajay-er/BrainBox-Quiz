@@ -1,15 +1,20 @@
 version: '3'
 services:
   postgres:
-    image: 'postgres:latest'
+    container_name: postgres
+    image: postgres:latest
     environment:
       - POSTGRES_PASSWORD=postgres_password
+    volumes:
+      - "psql_db:/var/lib/postgresql/data"
   backend:
     build:
       dockerfile: Dockerfile.dev
       context: ./backend
     ports:
       - "8080:8080" 
+    restart: always
+    container_name: brainbox_backend
     volumes:
       - ./backend:/app
     environment:
@@ -29,6 +34,9 @@ services:
       context: ./frontend
     ports:
       - "4200:4200" 
+    container_name: brainbox_frontend
     volumes:
       - /app/node_modules
       - ./frontend:/app
+volumes:
+  psql_db:

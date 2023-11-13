@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-user-container',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-container.component.css']
 })
 export class UserContainerComponent {
+  ngOnInit(){
+    initFlowbite()
+  }
 
+  getUserDetails(userId:any){
+
+  }
 }

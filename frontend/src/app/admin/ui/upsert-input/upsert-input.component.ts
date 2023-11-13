@@ -53,6 +53,8 @@ export class UpsertInputComponent {
   }
 
   onSubmit() {
-    console.log('wwp',this.signupForm);
+    if(this.signupForm.valid){
+      this.onSignupSubmit.emit(this.signupForm.value as ISignup);
+    }
   }
 }
