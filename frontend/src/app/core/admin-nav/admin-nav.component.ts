@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import {  initFlowbite } from 'flowbite';
 import { AuthService } from 'src/app/shared/data-access/auth.service';
 import { PageLayoutService } from 'src/app/shared/data-access/page-layout.service';
 import { PageLayout } from 'src/app/shared/interfaces';
@@ -25,4 +26,10 @@ export class AdminNavComponent {
     this.authService.adminLogout();
     this.router.navigateByUrl('/auth/admin-login');
   }
+
+  ngOnInit(){
+    initFlowbite();
+  }
+
+
 }

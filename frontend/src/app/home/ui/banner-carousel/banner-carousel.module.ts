@@ -7,4 +7,6 @@ import { BannerCarouselComponent } from './banner-carousel.component';
   imports: [CommonModule],
   exports: [BannerCarouselComponent],
 })
-export class BannerCarouselModule {}
+export class BannerCarouselModule {
+  
+}

@@ -69,13 +69,6 @@
           >
         </div>
         <ul class="py-2" aria-labelledby="user-menu-button">
-          <li>
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-              >Profile</a
-            >
-          </li>
           <li (click)="logout()" (click)="toogleDrop()">
             <a
               class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
@@ -88,7 +81,7 @@
   </div>
   <div
     [ngClass]="{ 'block': isDropDownOpen, hidden: !isDropDownOpen }"
-    class="fixed top-0 left-0 w-full h-full bg-black opacity-5 z-0"
+    class="fixed top-0 left-0 w-full h-full  z-0"
     (click)="toogleDrop()"
   ></div>
 </nav>

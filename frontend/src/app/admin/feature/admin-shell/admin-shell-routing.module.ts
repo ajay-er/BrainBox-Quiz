@@ -8,18 +8,6 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'add',
-    loadChildren: () =>
-      import('../add-quiz-container/add-quiz-container.module').then(
-        (m) => m.AddQuizContainerModule
-      ),
-  },
-  {
-    path: 'edit',
-    loadChildren: () =>
-      import('../edit-user/edit-user.module').then((m) => m.EditUserModule),
-  },
-  {
     path: 'users',
     loadChildren: () =>
       import('../user-container/user-container.module').then(
