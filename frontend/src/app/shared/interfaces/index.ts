@@ -63,7 +63,6 @@ export interface ICategory {
   total_quizes?:number;
 }
 
-
 export interface HomePageResponse {
     Categories:ICategory[];
 }
