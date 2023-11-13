@@ -56,3 +56,13 @@ export enum PageLayout {
   Admin = 'admin',
   User = 'user',
 }
+
+export interface ICategory {
+  category_name: string;
+  icon_svg: string;
+  total_quizes?:number;
+}
+
+export interface HomePageResponse {
+    Categories:ICategory[];
+}
