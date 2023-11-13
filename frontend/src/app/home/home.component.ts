@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ICategory } from '../shared/interfaces';
+import { HomeService } from './data-access/home.service';
 
 @Component({
   selector: 'app-home',
@@ -6,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
   isLoading: boolean = false;
+  categoriesData: ICategory[] = [];
+
+  private homeService = inject(HomeService);
+
+  ngOnInit() {
+    this.homeService.getAllCategories().subscribe((res: any) => {
+      this.categoriesData = res.data.Categories;
+    });
+  }
 }

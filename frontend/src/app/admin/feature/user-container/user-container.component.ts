@@ -10,4 +10,8 @@ export class UserContainerComponent {
   ngOnInit(){
     initFlowbite()
   }
+
+  getUserDetails(userId:any){
+
+  }
 }
