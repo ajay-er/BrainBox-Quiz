@@ -14,7 +14,7 @@ func CreateQuiz(quiz domain.CreateQuiz) error {
 		return err
 	}
 
-	quizResponse, err := repository.AddQuizByName(quiz.QuizName, categoryResponse.ID)
+	quizResponse, err := repository.AddQuizByName(quiz.QuizName,quiz.Description,categoryResponse.ID)
 	if err != nil {
 		return err
 	}
