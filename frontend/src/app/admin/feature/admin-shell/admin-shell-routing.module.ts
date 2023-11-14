@@ -3,6 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'users',
+    pathMatch: 'full',
+  },
+  {
     path: 'add',
     loadChildren: () =>
       import('../add-quiz-container/add-quiz-container.module').then(
@@ -29,8 +34,10 @@ const routes: Routes = [
   {
     path: 'quiz',
     loadChildren: () =>
-      import('../add-quiz-container/add-quiz-container.module').then((m) => m.AddQuizContainerModule),
-  }
+      import('../add-quiz-container/add-quiz-container.module').then(
+        (m) => m.AddQuizContainerModule
+      ),
+  },
 ];
 
 @NgModule({

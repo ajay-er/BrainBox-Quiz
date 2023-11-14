@@ -24,10 +24,7 @@ export class TokenService {
     const decodedToken = this.getDecodedToken(token);
     const expirationTime = decodedToken.exp;
     const currentTimestamp = Math.floor(Date.now() / 1000);
-    if (expirationTime !== undefined) {
-      return expirationTime < currentTimestamp;
-    }
-    return false;
+    return expirationTime < currentTimestamp;
   }
 
   isAdmin(token: string): boolean {

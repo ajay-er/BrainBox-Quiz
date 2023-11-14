@@ -34,3 +34,35 @@ export interface UserAuthResponse {
   };
   error: null | string;
 }
+
+interface Admin {
+  id: number;
+  firstname: string;
+  lastname: string;
+  email: string;
+}
+
+export interface AdminAuthResponse {
+  status_code: number;
+  message: string;
+  data: {
+    Admin: Admin;
+    Token: string;
+  };
+  error: null | string;
+}
+
+export enum PageLayout {
+  Admin = 'admin',
+  User = 'user',
+}
+
+export interface ICategory {
+  category_name: string;
+  icon_svg: string;
+  total_quizes?:number;
+}
+
+export interface HomePageResponse {
+    Categories:ICategory[];
+}

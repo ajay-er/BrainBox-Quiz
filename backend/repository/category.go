@@ -9,12 +9,11 @@ import (
 
 func AddCategory(category domain.Category) (domain.Category, error) {
 	var b string
-	err := database.DB.Raw("insert into categories (category_name) values (?) returning category_name", category.CategoryName).Scan(&b).Error
-	if err != nil {
+	var categoryResponse domain.Category
+	if err := database.DB.Raw("INSERT INTO categories (category_name, icon_svg) VALUES (?, ?) RETURNING id, category_name, icon_svg", category.CategoryName, category.IconSvg).Scan(&categoryResponse).Error; err != nil {
 		return domain.Category{}, err
 	}
-	var categoryResponse domain.Category
-	err = database.DB.Raw("SELECT id ,category_name FROM categories WHERE category_name = ?", b).Scan(&categoryResponse).Error
+	err := database.DB.Raw("SELECT id ,category_name,icon_svg FROM categories WHERE category_name = ?", b).Scan(&categoryResponse).Error
 	if err != nil {
 		return domain.Category{}, err
 	}
