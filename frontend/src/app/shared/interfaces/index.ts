@@ -61,8 +61,25 @@ export interface ICategory {
   category_name: string;
   icon_svg: string;
   total_quizes?:number;
+  id?:string
 }
 
 export interface HomePageResponse {
     Categories:ICategory[];
+}
+
+export interface CreateQuiz {
+  categoryName: string;
+  quizName: string;
+  questions: QuizQuestion[];
+}
+
+export interface QuizQuestion {
+  question: string;
+  options: OptionValues[];
+}
+
+export interface OptionValues {
+  option: string;
+  isCorrect: boolean;
 }
