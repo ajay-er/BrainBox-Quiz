@@ -27,6 +27,8 @@ func main() {
 	corss := cors.DefaultConfig()
 	corss.AllowOrigins = []string{"*"}
 	corss.AllowMethods = []string{"GET", "POST","PUT","PATCH","DELETE"}
+	corss.AllowHeaders = []string{"Authorization", "Content-Type"} 
+
 	router.Use(cors.New(corss))
 	routes.UserRoutes(router.Group("/users"))
 	routes.AdminRoutes(router.Group("/admin"))
