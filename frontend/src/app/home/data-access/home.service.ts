@@ -10,6 +10,6 @@ export class HomeService {
   private http = inject(HttpClient);
 
   getAllCategories() {
-    return this.http.get(`${this.apiBaseUrl}`);
+    return this.http.get(`${this.apiBaseUrl}/users/`);
   }
 }
