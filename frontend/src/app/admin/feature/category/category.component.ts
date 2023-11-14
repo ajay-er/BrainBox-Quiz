@@ -9,7 +9,7 @@ import { AdminService } from '../../data-access/admin.service';
 })
 export class CategoryComponent {
   private adminService = inject(AdminService);
-  submitCategoryData(data: ICategory) {
+  submitCategoryData(data: ICategory) {    
     this.adminService.addNewCategory(data).subscribe((res: any) => {
       console.log(res);
     });

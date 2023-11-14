@@ -21,4 +21,8 @@ export class AdminService {
   updateUserData(user: ISignup) {
     return this.http.post(`${this.baseUrl}/users/update-user`, user);
   }
+
+  getAllCategories(){
+    return this.http.get(`${this.baseUrl}/users/`)
+  }
 }
