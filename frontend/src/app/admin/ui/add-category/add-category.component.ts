@@ -48,6 +48,7 @@ export class AddCategoryComponent {
     this.santizedSvg = this.sanitizer.bypassSecurityTrustHtml(this.formData.iconTextarea)    
     this.isSvgValid = isValidSvg;
     
+
   }
   
 }

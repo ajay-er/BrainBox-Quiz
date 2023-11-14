@@ -62,7 +62,7 @@
       [buttonType]="'submit'"
       class="flex items-center justify-center mt-8 px-6 bg-blue-600 hover:bg-blue-700 rounded font-semibold text-sm text-blue-100"
       [label]="'ADD CATEGORY'"
-      [disabled]="!!categoryForm.invalid"
+      [disabled]="!!categoryForm.invalid && isSvgValid"
     ></app-loading-button>
   </div>
 </form>
