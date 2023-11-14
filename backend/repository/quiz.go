@@ -16,11 +16,11 @@ func AddCategoryByName(CategoryName string) (models.CategoryResponse, error) {
 	}
 	return categoryResponse, nil
 }
-func AddQuizByName(quizname string, categoryId uint) (models.QuizResponse, error) {
+func AddQuizByName(quizname string, description string, categoryId uint) (models.QuizResponse, error) {
 	var quizResponse models.QuizResponse
-	query := "INSERT INTO quizes (quiz_name, category_id) VALUES (?, ?) RETURNING id ,quiz_name,category_id"
+	query := "INSERT INTO quizes (quiz_name,description, category_id) VALUES (?, ?, ?) RETURNING id ,quiz_name,description,category_id"
 
-	err := database.DB.Raw(query, quizname, categoryId).Scan(&quizResponse).Error
+	err := database.DB.Raw(query, quizname, description, categoryId).Scan(&quizResponse).Error
 
 	if err != nil {
 		return models.QuizResponse{}, err

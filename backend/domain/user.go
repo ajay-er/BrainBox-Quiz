@@ -67,6 +67,7 @@ type QuizResults struct {
 type CreateQuiz struct {
 	CategoryName string
 	QuizName     string
+	Description  string
 	Question     []QuizQuestion
 }
 type QuizQuestion struct {
