@@ -32,7 +32,7 @@ func AdminRoutes(r *gin.RouterGroup) {
 		}
 		quizes := r.Group("/quizes")
 		{
-			quizes.POST("/add", handlers.CreateQuiz)
+			quizes.POST("", handlers.CreateQuiz)
 			quizes.PUT("", handlers.UpdateQuiz)
 			quizes.DELETE("", handlers.DeleteQuiz)
 		}
@@ -41,7 +41,6 @@ func AdminRoutes(r *gin.RouterGroup) {
 			questions.PUT("", handlers.UpdateQuestion)
 			questions.DELETE("", handlers.DeleteQuestion)
 		}
-	
 
 	}
 
