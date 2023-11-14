@@ -9,8 +9,8 @@ import (
 func UserRoutes(r *gin.RouterGroup) {
 	r.POST("/signup", handlers.Signup)
 	r.POST("/login", handlers.UserLoginWithPassword)
-	r.GET("/", handlers.Home)
-	r.GET("/categories", handlers.Categories)
+	r.GET("/", middlewares.UserAuthMiddleware(), handlers.Home)
+	r.GET("/categories", middlewares.UserAuthMiddleware(), handlers.Categories)
 	r.GET("/quizes", middlewares.UserAuthMiddleware(), handlers.Quizes)
 	r.POST("/score", middlewares.UserAuthMiddleware(), handlers.ScoreTracking)
 }
