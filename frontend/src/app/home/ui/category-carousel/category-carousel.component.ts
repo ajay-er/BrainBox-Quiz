@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ICategory } from 'src/app/shared/interfaces';
 
 @Component({
@@ -8,4 +9,12 @@ import { ICategory } from 'src/app/shared/interfaces';
 })
 export class CategoryCarouselComponent {
   @Input() categories: ICategory[] = [];
+  
+  constructor(private sanitizer: DomSanitizer) {}
+  
+  sanitizeHtml(html: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
+  
+
 }
