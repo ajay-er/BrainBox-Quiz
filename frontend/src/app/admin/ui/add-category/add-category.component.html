@@ -2,6 +2,7 @@
   class="flex flex-col justify-center items-center bg-white rounded-xl shadow-lg sm:p-8 p-4"
   #categoryForm="ngForm"
   (ngSubmit)="onSubmit(categoryForm.value)"
+  
 >
   <div class="w-3/4">
     <!-- ... other form elements ... -->
@@ -29,24 +30,24 @@
     >
     <div class="flex">
       <textarea
-        class="flex items-center h-12 px-4 w-full bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2"
+        class="flex items-center  h-12 px-4 w-full bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2"
         id="iconTextarea"
         name="iconTextarea"
         [(ngModel)]="formData.iconTextarea"
+        (ngModelChange)="validateSvg()"
         required
       ></textarea>
       <div class="p-2 mt-2">
-        <svg
-          class="w-8 h-8 text-gray-800 dark:text-white"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="currentColor"
-          viewBox="0 0 18 20"
-        >
-          <path
-            d="M16 0H4a2 2 0 0 0-2 2v1H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4.5a3 3 0 1 1 0 6 3 3 0 0 1 0-6ZM13.929 17H7.071a.5.5 0 0 1-.5-.5 3.935 3.935 0 1 1 7.858 0 .5.5 0 0 1-.5.5Z"
-          />
-        </svg>
+        <ng-container *ngIf="isSvgValid; else defaultSvg">
+          <div class="h-6 w-6 text-black" [innerHTML]="santizedSvg"></div>
+        </ng-container>
+        <ng-template #defaultSvg>
+          <!-- Default SVG placeholder -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 text-red-600 h-6">
+            <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
+          </svg>
+          
+        </ng-template>
       </div>
     </div>
     <div
@@ -61,7 +62,7 @@
       [buttonType]="'submit'"
       class="flex items-center justify-center mt-8 px-6 bg-blue-600 hover:bg-blue-700 rounded font-semibold text-sm text-blue-100"
       [label]="'ADD CATEGORY'"
-      [disabled]="!!categoryForm.invalid"
+      [disabled]="!!categoryForm.invalid && isSvgValid"
     ></app-loading-button>
   </div>
 </form>
