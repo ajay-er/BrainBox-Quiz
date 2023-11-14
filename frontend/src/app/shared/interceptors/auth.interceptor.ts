@@ -1,30 +1,55 @@
-import { HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import {
+  HttpInterceptor,
+  HttpHandler,
+  HttpRequest,
+} from '@angular/common/http';
 import { Tokens } from '../interfaces';
+import { Router } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
 
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const useAdminToken = shouldUseAdminToken(req);
-  const token = useAdminToken ? getAdminToken() : getUserToken();
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+  constructor(private router: Router) {}
 
-  if (token) {
-    const modifiedRequest = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return next(modifiedRequest);
+  intercept(req: HttpRequest<unknown>, next: HttpHandler) {
+    const useAdminToken = this.shouldUseAdminToken();
+
+    const token = useAdminToken ? this.getAdminToken() : this.getUserToken();
+
+    if (token) {
+      const modifiedRequest = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return next.handle(modifiedRequest).pipe(
+        catchError((error) => {
+          if (error.status === 401) {
+            console.log('evide work aayi chetta..');
+            this.router.navigate(['/auth/login']);
+          }
+          return throwError(() => error);
+        })
+      );
+    }
+
+    return next.handle(req);
   }
 
-  return next(req);
-};
+  private shouldUseAdminToken(): boolean {
+    const currentRoute = this.router.url;
+    return currentRoute.startsWith('/admin');
+  }
 
-function shouldUseAdminToken(req: HttpRequest<unknown>): boolean {
-  return req.url.startsWith('/admin');
-}
+  private getAdminToken(): string | null {
+    const token = window.localStorage.getItem(Tokens.AdminToken);
+    return token;
+  }
 
-function getAdminToken(): string | null {
-  return localStorage.getItem(Tokens.AdminToken);
-}
-
-function getUserToken(): string | null {
-  return localStorage.getItem(Tokens.UserToken);
+  private getUserToken(): string | null {
+    const token = window.localStorage.getItem(Tokens.UserToken);
+    return token;
+  }
 }

@@ -12,6 +12,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { GlobalErrorHandler } from './shared/data-access/global-error-handler.service';
 import { AdminNavComponent } from './core/admin-nav/admin-nav.component';
 import { SidebarComponent } from './core/sidebar/sidebar.component';
+import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,11 @@ import { SidebarComponent } from './core/sidebar/sidebar.component';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingButtonInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
       multi: true,
     },
   ],

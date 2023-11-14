@@ -11,7 +11,7 @@ export class AdminService {
   private http = inject(HttpClient);
 
   addNewCategory(data: ICategory) {    
-    return this.http.post(`${this.baseUrl}/category`, data);
+    return this.http.post(`${this.baseUrl}/admin/category`, data);
   }
 
   addNewUser(user: ISignup) {

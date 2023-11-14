@@ -14,7 +14,9 @@ export class HomeComponent {
 
   ngOnInit() {
     this.homeService.getAllCategories().subscribe((res: any) => {
-      this.categoriesData = res.data.Categories;
+      if (res.data?.Categories) {
+        this.categoriesData = res.data.Categories;
+      }
     });
   }
 }
