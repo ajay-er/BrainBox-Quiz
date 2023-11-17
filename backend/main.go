@@ -15,7 +15,7 @@ func main() {
 	cfg, err := config.LoadConfig()
 	if err != nil {
 		log.Fatalf("error loading the config file")
-		fmt.Println("hey")
+		fmt.Println("hey", "HELLOOO")
 	}
 	DB, err := database.ConnectDatabase(cfg)
 	if err != nil {
@@ -26,8 +26,8 @@ func main() {
 
 	corss := cors.DefaultConfig()
 	corss.AllowOrigins = []string{"*"}
-	corss.AllowMethods = []string{"GET", "POST","PUT","PATCH","DELETE"}
-	corss.AllowHeaders = []string{"Authorization", "Content-Type"} 
+	corss.AllowMethods = []string{"GET", "POST", "PUT", "PATCH", "DELETE"}
+	corss.AllowHeaders = []string{"Authorization", "Content-Type"}
 
 	router.Use(cors.New(corss))
 	routes.UserRoutes(router.Group("/users"))
