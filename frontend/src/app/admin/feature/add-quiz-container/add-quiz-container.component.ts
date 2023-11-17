@@ -19,4 +19,10 @@ export class AddQuizContainerComponent {
       }
     })
   }
+
+  addNewQuiz(data:any){    
+    this.adminService.addNewQuiz(data).subscribe((res:any)=>{
+      console.log(res);
+    })
+  }
 }

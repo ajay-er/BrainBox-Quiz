@@ -64,16 +64,16 @@ type QuizResults struct {
 	User        User   `json:"-" gorm:"foreignKey:UserId;references:ID;constraint:OnDelete:CASCADE"`
 }
 type CreateQuiz struct {
-	CategoryName string
-	QuizName     string
-	Description  string
+	CategoryName string `json:"categoryName"`
+	QuizName     string `json:"quizName"`
+	Description  string `json:"description"`
 	Question     []QuizQuestion
 }
 type QuizQuestion struct {
-	Questions string
+	Questions string `json:"question"`
 	Options   []OptionValues
 }
 type OptionValues struct {
-	Option    string
-	IsCorrect bool
+	Option    string `json:"option"`
+	IsCorrect bool `json:"isCorrect"`
 }
