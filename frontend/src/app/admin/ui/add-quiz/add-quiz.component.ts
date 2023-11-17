@@ -7,7 +7,7 @@ import {
   inject,
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ICategory } from 'src/app/shared/interfaces';
+import { CreateQuiz, ICategory } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'app-add-quiz',
@@ -27,7 +27,7 @@ export class AddQuizComponent {
     this.addquizForm = this.fb.group({
       quizName: ['', Validators.required],
       description: ['', Validators.required],
-      category: ['', Validators.required],
+      categoryName: ['', Validators.required],
       questions: this.fb.array([this.createquiz()]),
     });
   }
@@ -60,15 +60,13 @@ export class AddQuizComponent {
   }
 
   addQuestion() {
-    const questionFormGroup = this.createquiz();
-    this.questions.push(questionFormGroup);
-    
+    const questionsArray = this.addquizForm.get('questions') as FormArray;
+    questionsArray.push(this.createquiz());
   }
 
   onSubmit() {
-    console.log(this.addquizForm);
     if (this.addquizForm.valid) {
-      this.submitAddQuizForm.emit(this.addquizForm.value);
+      this.submitAddQuizForm.emit(this.addquizForm.value as CreateQuiz);
     }
   }
 }

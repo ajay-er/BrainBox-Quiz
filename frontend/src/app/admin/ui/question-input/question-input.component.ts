@@ -1,5 +1,18 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder, Validators, AbstractControl, FormGroupDirective } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import {
+  FormGroup,
+  FormArray,
+  FormBuilder,
+  Validators,
+  AbstractControl,
+  FormGroupDirective,
+} from '@angular/forms';
 import { initFlowbite } from 'flowbite';
 import { QuizQuestion } from 'src/app/shared/interfaces';
 
@@ -7,25 +20,18 @@ import { QuizQuestion } from 'src/app/shared/interfaces';
   selector: 'app-question-input',
   templateUrl: './question-input.component.html',
   styleUrls: ['./question-input.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuestionInputComponent {
   @Input() i!: any;
   @Input() question!: any;
-  ngOnInit()
-  {
-    console.log(this.question);
-  }
 
-  updateIsCorrectValue(questionIndex: number, optionIndex: number) {
-    const optionsArray = (this.question.get('options') as FormArray);
-
+  updateIsCorrectValue(optionIndex: number) {
+    const optionsArray = this.question.get('options') as FormArray;
     optionsArray.controls.forEach((control, index) => {
       if (index !== optionIndex) {
         control?.get('isCorrect')?.setValue(false);
       }
     });
-    
   }
 }
-

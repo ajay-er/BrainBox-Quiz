@@ -25,4 +25,8 @@ export class AdminService {
   getAllCategories(){
     return this.http.get(`${this.baseUrl}/users/`)
   }
+
+  addNewQuiz(data:any){
+    return this.http.post(`${this.baseUrl}/admin/quizes`,data)
+  }
 }
